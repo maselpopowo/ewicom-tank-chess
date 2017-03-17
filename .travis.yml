@@ -8,7 +8,7 @@ branches:
     - develop
 
 before_script:
-  - npm install -g @angular/cli
+  - npm install -g @angular/cli@1.0.0-rc.1
 
 script:
   - ng test --watch false
