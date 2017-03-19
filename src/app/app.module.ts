@@ -8,6 +8,7 @@ import { GameBoardComponent } from "./game-board/game-board.component";
 import { SquareComponent } from "./game-board/square.component";
 import { BoardService } from "./game-board/board.service";
 import { PieceInfoComponent } from "./piece-info/piece-info.component";
+import { PieceInfoService } from "./piece-info/piece-info.service";
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { PieceInfoComponent } from "./piece-info/piece-info.component";
     MaterialModule
   ],
   providers: [
-    BoardService
+    BoardService,
+    PieceInfoService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,3 +1,4 @@
-<div [ngStyle]="{'background-color': getBackgroundColor(), transform: getRotation()}">
+<div [ngStyle]="{'background-color': getBackgroundColor(), transform: getRotation()}"
+     (click)="updateInfo()">
   <img src="../../assets/tank.png" *ngIf="square.piece">
 </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Square } from "./square.interface";
+import { PieceInfoService } from "../piece-info/piece-info.service";
 
 @Component({
   selector: 'etc-square',
@@ -11,7 +12,7 @@ export class SquareComponent implements OnInit {
   @Input()
   square: Square = {type: 'NONE'};
 
-  constructor(){
+  constructor(private _pieceInfoService: PieceInfoService){
   }
 
   ngOnInit(){
@@ -42,6 +43,10 @@ export class SquareComponent implements OnInit {
 
   getRotation(){
     return this.square.piece ? 'rotate(' + this.square.piece.rotation + ')' : 'rotate(0deg)';
+  }
+
+  updateInfo(){
+    this._pieceInfoService.setCurrent(this.square.piece);
   }
 
 }

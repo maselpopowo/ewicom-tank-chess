@@ -1,3 +1,8 @@
-<md-card>
-  Piece Info
+<md-card *ngIf="piece">
+  <md-card-title>{{piece.name}}</md-card-title>
+  <md-card-subtitle>{{piece.type}}</md-card-subtitle>
+</md-card>
+
+<md-card *ngIf="!piece">
+  Nie wybrano pionka
 </md-card>
