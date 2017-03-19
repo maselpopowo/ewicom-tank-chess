@@ -9,7 +9,7 @@ import { Square } from "./square.interface";
 export class SquareComponent implements OnInit {
 
   @Input()
-  square: Square = {type: 'NONE'};
+  square: Square = {type: 'NONE', piece: false};
 
   constructor(){
   }
