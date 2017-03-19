@@ -1,4 +1,4 @@
 <div [ngStyle]="{'background-color': getBackgroundColor(), transform: getRotation()}"
-     (click)="updateInfo()">
+     (click)="updateInfo()" [class.active-square]="square.active">
   <img src="../../assets/tank.png" *ngIf="square.piece">
 </div>

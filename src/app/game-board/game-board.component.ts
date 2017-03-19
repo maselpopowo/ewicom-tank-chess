@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Square } from "./square.interface";
+import { Square } from "./square";
 import { BoardService } from "./board.service";
 
 @Component({
@@ -16,6 +16,7 @@ export class GameBoardComponent implements OnInit {
 
   ngOnInit(){
     this._boardService.getBoard().subscribe(board => this.board = board);
+    this._boardService.refresh();
   }
 
 }
