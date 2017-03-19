@@ -7,12 +7,14 @@ import { AppComponent } from "./app.component";
 import { GameBoardComponent } from "./game-board/game-board.component";
 import { SquareComponent } from "./game-board/square.component";
 import { BoardService } from "./game-board/board.service";
+import { PieceInfoComponent } from "./piece-info/piece-info.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     GameBoardComponent,
-    SquareComponent
+    SquareComponent,
+    PieceInfoComponent
   ],
   imports: [
     BrowserModule,

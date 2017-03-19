@@ -1,3 +1,9 @@
-etc-game-board {
+#content-panel {
+  display: flex;
   margin: 10px;
+}
+
+etc-piece-info {
+  flex: 1;
+  margin-left: 10px;
 }
