@@ -6,6 +6,7 @@ import { MaterialModule } from "@angular/material";
 import { AppComponent } from "./app.component";
 import { GameBoardComponent } from "./game-board/game-board.component";
 import { SquareComponent } from "./game-board/square.component";
+import { BoardService } from "./game-board/board.service";
 
 @NgModule({
   declarations: [
@@ -19,7 +20,9 @@ import { SquareComponent } from "./game-board/square.component";
     HttpModule,
     MaterialModule
   ],
-  providers: [],
+  providers: [
+    BoardService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
