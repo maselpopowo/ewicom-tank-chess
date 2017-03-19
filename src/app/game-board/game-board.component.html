@@ -1,3 +1,5 @@
-<p>
-  game-board works!
-</p>
+<md-card class="board">
+  <div class="row" *ngFor="let row of board">
+    <div class="cell" *ngFor="let cell of row">{{ cell }}</div>
+  </div>
+</md-card>

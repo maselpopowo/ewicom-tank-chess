@@ -7,10 +7,19 @@ import { Component, OnInit } from "@angular/core";
 })
 export class GameBoardComponent implements OnInit {
 
+  board: any = [];
+
   constructor(){
   }
 
   ngOnInit(){
+    for (let r = 0; r < 10; r++) {
+      let row = [];
+      for (let c = 0; c < 20; c++) {
+        row.push(r.toString() + '-' + c.toString());
+      }
+      this.board.push(row);
+    }
   }
 
 }
