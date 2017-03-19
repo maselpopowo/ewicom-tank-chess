@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Square } from "./square.interface";
 
 @Component({
   selector: 'etc-game-board',
@@ -7,7 +8,7 @@ import { Component, OnInit } from "@angular/core";
 })
 export class GameBoardComponent implements OnInit {
 
-  board: any = [];
+  board: Array<Array<Square>> = [];
 
   constructor(){
   }
@@ -16,7 +17,7 @@ export class GameBoardComponent implements OnInit {
     for (let r = 0; r < 10; r++) {
       let row = [];
       for (let c = 0; c < 20; c++) {
-        row.push(r.toString() + '-' + c.toString());
+        row.push({type: 'GRASS'});
       }
       this.board.push(row);
     }

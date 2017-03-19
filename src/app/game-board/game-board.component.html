@@ -1,5 +1,5 @@
 <md-card class="board">
   <div class="row" *ngFor="let row of board">
-    <div class="cell" *ngFor="let cell of row">{{ cell }}</div>
+    <etc-square [square]="square" *ngFor="let square of row"></etc-square>
   </div>
 </md-card>
