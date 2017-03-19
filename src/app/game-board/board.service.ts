@@ -10,6 +10,8 @@ export class BoardService {
 
   board: Array<Array<Square>> = [];
 
+  selected: Subject<Square> = new Subject();
+
   subject: Subject<Array<Array<Square>>> = new Subject();
 
   constructor(){
@@ -87,6 +89,7 @@ export class BoardService {
     this.setInactive();
     this.board[square.coordinates.row][square.coordinates.cell].setActive();
     this.subject.next(this.board);
+    this.selected.next(square);
   }
 
   private setInactive(){
@@ -95,6 +98,10 @@ export class BoardService {
         this.board[r][c].active = false;
       }
     }
+  }
+
+  getSelected(): Observable<Square>{
+    return this.selected.asObservable();
   }
 
 }

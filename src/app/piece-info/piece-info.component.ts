@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { PieceInfoService } from "./piece-info.service";
-import { Piece } from "../game-board/piece";
+import { BoardService } from "../game-board/board.service";
+import { Square } from "../game-board/square";
 
 @Component({
   selector: 'etc-piece-info',
@@ -9,13 +9,16 @@ import { Piece } from "../game-board/piece";
 })
 export class PieceInfoComponent implements OnInit {
 
-  piece: Piece;
+  square: Square;
 
-  constructor(private _pieceInfoService: PieceInfoService){
+  constructor(private _boardService: BoardService){
   }
 
   ngOnInit(){
-    this._pieceInfoService.getCurrentPiece().subscribe(current => this.piece = current);
+    this._boardService.getSelected().subscribe(selected => this.square = selected);
+  }
+
+  move(){
   }
 
 }

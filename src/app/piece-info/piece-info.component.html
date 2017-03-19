@@ -1,8 +1,12 @@
-<md-card *ngIf="piece">
-  <md-card-title>{{piece.name}}</md-card-title>
-  <md-card-subtitle>{{piece.type}}</md-card-subtitle>
+<md-card *ngIf="square?.piece">
+  <md-card-title>{{square.piece.name}}</md-card-title>
+  <md-card-subtitle>{{square.piece.type}}</md-card-subtitle>
+
+  <md-card-content>
+    <button md-raised-button (click)="move()">FORWARD</button>
+  </md-card-content>
 </md-card>
 
-<md-card *ngIf="!piece">
+<md-card *ngIf="!square?.piece">
   Nie wybrano pionka
 </md-card>

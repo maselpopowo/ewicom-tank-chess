@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Square } from "./square";
-import { PieceInfoService } from "../piece-info/piece-info.service";
 import { BoardService } from "./board.service";
 
 @Component({
@@ -13,8 +12,7 @@ export class SquareComponent implements OnInit {
   @Input()
   square: Square;
 
-  constructor(private _pieceInfoService: PieceInfoService,
-              private _boardService: BoardService){
+  constructor(private _boardService: BoardService){
   }
 
   ngOnInit(){
@@ -48,7 +46,6 @@ export class SquareComponent implements OnInit {
   }
 
   updateInfo(){
-    this._pieceInfoService.setCurrent(this.square.piece);
     this._boardService.setActive(this.square);
   }
 
