@@ -104,4 +104,13 @@ export class BoardService {
     return this.selected.asObservable();
   }
 
+  move(square: Square){
+    let from = this.board[square.coordinates.row][square.coordinates.cell];
+    this.board[square.coordinates.row][square.coordinates.cell] = from.clear();
+
+    this.board[square.coordinates.row][square.coordinates.cell - 1] = from.move();
+
+    this.selected.next();
+  }
+
 }

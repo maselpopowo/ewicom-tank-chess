@@ -19,6 +19,7 @@ export class PieceInfoComponent implements OnInit {
   }
 
   move(){
+    this._boardService.move(this.square);
   }
 
 }

@@ -20,4 +20,14 @@ export class Square {
   setActive(){
     this.active = true;
   }
+
+  clear(){
+    return new Square(this.coordinates.row, this.coordinates.cell, this.type);
+  }
+
+  move(){
+    let moved = new Square(this.coordinates.row, this.coordinates.cell - 1, this.type);
+    moved.setPiece(this.piece);
+    return moved;
+  }
 }
