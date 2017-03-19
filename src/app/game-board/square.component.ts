@@ -18,7 +18,7 @@ export class SquareComponent implements OnInit {
   }
 
   getBackgroundColor(){
-    let color = 'white';
+    let color = 'none';
     switch (this.square.type) {
       case 'GRASS':
         color = 'darkgreen';
@@ -28,6 +28,12 @@ export class SquareComponent implements OnInit {
         break;
       case 'SAND':
         color = 'darkgoldenrod';
+        break;
+      case 'ROCK':
+        color = '#808080';
+        break;
+      case 'NONE':
+        color = 'none';
         break;
     }
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Square } from "./square.interface";
+import { BoardService } from "./board.service";
 
 @Component({
   selector: 'etc-game-board',
@@ -10,17 +11,11 @@ export class GameBoardComponent implements OnInit {
 
   board: Array<Array<Square>> = [];
 
-  constructor(){
+  constructor(private _boardService: BoardService){
   }
 
   ngOnInit(){
-    for (let r = 0; r < 10; r++) {
-      let row = [];
-      for (let c = 0; c < 20; c++) {
-        row.push({type: 'GRASS'});
-      }
-      this.board.push(row);
-    }
+    this._boardService.getBoard().subscribe(board => this.board = board);
   }
 
 }
