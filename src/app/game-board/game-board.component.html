@@ -1,0 +1,5 @@
+<md-card class="board">
+  <div class="row" *ngFor="let row of board">
+    <etc-square [square]="square" *ngFor="let square of row"></etc-square>
+  </div>
+</md-card>
