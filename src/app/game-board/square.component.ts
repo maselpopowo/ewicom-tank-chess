@@ -9,7 +9,7 @@ import { Square } from "./square.interface";
 export class SquareComponent implements OnInit {
 
   @Input()
-  square: Square = {type: 'NONE', piece: false};
+  square: Square = {type: 'NONE'};
 
   constructor(){
   }
@@ -38,6 +38,10 @@ export class SquareComponent implements OnInit {
     }
 
     return color;
+  }
+
+  getRotation(){
+    return this.square.piece ? 'rotate(' + this.square.piece.rotation + ')' : 'rotate(0deg)';
   }
 
 }
