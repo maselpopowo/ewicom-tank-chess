@@ -9,13 +9,15 @@ import { SquareComponent } from "./game-board/square.component";
 import { BoardService } from "./game-board/board.service";
 import { PieceInfoComponent } from "./piece-info/piece-info.component";
 import { PiecesService } from "./pieces.service";
+import { PieceComponent } from "./piece/piece.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     GameBoardComponent,
     SquareComponent,
-    PieceInfoComponent
+    PieceInfoComponent,
+    PieceComponent
   ],
   imports: [
     BrowserModule,

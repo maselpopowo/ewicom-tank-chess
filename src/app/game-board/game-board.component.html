@@ -1,5 +1,7 @@
 <md-card class="board">
-  <div class="row" *ngFor="let row of board">
-    <etc-square [square]="square" *ngFor="let square of row"></etc-square>
+  <div class="row" *ngFor="let row of board; let r = index">
+    <etc-square [square]="square" *ngFor="let square of row; let c = index">
+      <etc-piece [piece]="getPiece(r, c)" *ngIf="showPiece(r, c)"></etc-piece>
+    </etc-square>
   </div>
 </md-card>
