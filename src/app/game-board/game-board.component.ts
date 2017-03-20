@@ -16,7 +16,6 @@ export class GameBoardComponent implements OnInit {
 
   ngOnInit(){
     this._boardService.getBoard().subscribe(board => this.board = board);
-    this._boardService.refresh();
   }
 
 }

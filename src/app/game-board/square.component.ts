@@ -19,7 +19,7 @@ export class SquareComponent implements OnInit {
   }
 
   getBackgroundColor(){
-    let color = 'none';
+    let color = 'NONE';
     switch (this.square.type) {
       case 'GRASS':
         color = 'darkgreen';
@@ -40,13 +40,4 @@ export class SquareComponent implements OnInit {
 
     return color;
   }
-
-  getRotation(){
-    return this.square.piece ? 'rotate(' + this.square.piece.rotation + ')' : 'rotate(0deg)';
-  }
-
-  updateInfo(){
-    this._boardService.setActive(this.square);
-  }
-
 }

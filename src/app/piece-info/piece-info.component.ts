@@ -1,5 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { BoardService } from "../game-board/board.service";
 import { Square } from "../game-board/square";
 
 @Component({
@@ -11,15 +10,10 @@ export class PieceInfoComponent implements OnInit {
 
   square: Square;
 
-  constructor(private _boardService: BoardService){
+  constructor(){
   }
 
   ngOnInit(){
-    this._boardService.getSelected().subscribe(selected => this.square = selected);
-  }
-
-  move(){
-    this._boardService.move(this.square);
   }
 
 }

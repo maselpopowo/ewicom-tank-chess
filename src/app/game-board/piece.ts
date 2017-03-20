@@ -1,9 +1,14 @@
 export class Piece {
-  rotation: string = '0deg';
-  name: string = 'Panzerkampfwagen 35(t)';
-  type: string = 'Light tank';
+  name: string;
+  type: string;
 
-  constructor(rotation: string){
+  coordinates: any;
+  rotation: number;
+
+  constructor(name: string, type: string, coordinates: any, rotation: number){
+    this.name = name;
+    this.type = type;
+    this.coordinates = coordinates;
     this.rotation = rotation;
   }
 }
