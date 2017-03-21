@@ -89,7 +89,46 @@ export class BoardService {
     this.refresh();
   }
 
+  inactiveAll(){
+    this.board.forEach(row => row.forEach((square) => square.active = false));
+  }
+
   getActivePiece(): Observable<Piece>{
     return this.activePiece.asObservable();
+  }
+
+  forward(pieceId){
+    this.board.forEach((row, rIndex) =>{
+
+      for (let cIndex = 0; cIndex < row.length; cIndex++) {
+        let square = row[cIndex];
+        let piece = square.piece;
+        if (piece && piece.id == pieceId) {
+          let r = 0;
+          let c = 0;
+          if (piece.rotation == 90) {
+            r = 1;
+          }
+          if (piece.rotation == 270) {
+            r = -1;
+          }
+          if (piece.rotation == 0) {
+            c = -1;
+          }
+          if (piece.rotation == 180) {
+            c = 1;
+          }
+
+          this.board[(rIndex + r)][(cIndex + c)].setPiece(piece);
+          square.removePiece();
+
+          break;
+        }
+      }
+
+    });
+    this.activePiece.next();
+    this.inactiveAll();
+    this.refresh();
   }
 }

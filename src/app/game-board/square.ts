@@ -23,4 +23,8 @@ export class Square {
   setPiece(piece: Piece){
     this.piece = piece;
   }
+
+  removePiece(){
+    delete this.piece;
+  }
 }

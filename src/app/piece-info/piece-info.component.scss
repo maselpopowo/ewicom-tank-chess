@@ -5,3 +5,11 @@
 md-card {
   flex: 1;
 }
+
+md-card-content {
+  display: flex;
+
+  & > button {
+    flex: 1;
+  }
+}

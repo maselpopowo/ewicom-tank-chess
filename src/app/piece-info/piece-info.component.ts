@@ -18,4 +18,8 @@ export class PieceInfoComponent implements OnInit {
     this._boardService.getActivePiece().subscribe(active => this.piece = active);
   }
 
+  forward(){
+    this._boardService.forward(this.piece.id);
+  }
+
 }
