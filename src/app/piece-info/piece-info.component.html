@@ -1,1 +1,8 @@
-<md-card>PIECE INFO</md-card>
+<md-card *ngIf="piece">
+  <md-card-title>{{piece.name}}</md-card-title>
+  <md-card-subtitle>{{piece.type}}</md-card-subtitle>
+</md-card>
+
+<md-card *ngIf="!piece">
+  <md-card-title>Piece not selected</md-card-title>
+</md-card>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, EventEmitter, Output } from "@angular/core";
 import { Square } from "./square";
 
 @Component({
@@ -10,6 +10,9 @@ export class SquareComponent implements OnInit {
 
   @Input()
   square: Square;
+
+  @Output()
+  squareActivated: EventEmitter<string> = new EventEmitter();
 
   constructor(){
   }
@@ -37,6 +40,10 @@ export class SquareComponent implements OnInit {
         break;
     }
 
-    return color;
+    return this.square.active ? 'red' : color;
+  }
+
+  activate(){
+    this.squareActivated.emit(this.square.id);
   }
 }

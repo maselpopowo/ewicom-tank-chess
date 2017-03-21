@@ -3,11 +3,16 @@ import { Observable } from "rxjs/Observable";
 import { Square } from "./square";
 import "rxjs/add/observable/of";
 import { Piece } from "./piece";
+import { Subject } from "rxjs";
 
 @Injectable()
 export class BoardService {
 
   board: Array<Array<Square>> = [];
+
+  boardSubject: Subject<Array<Array<Square>>> = new Subject();
+
+  activePiece: Subject<Piece> = new Subject();
 
   constructor(){
     for (let r = 0; r < 15; r++) {
@@ -66,6 +71,25 @@ export class BoardService {
   }
 
   getBoard(): Observable<Array<Array<Square>>>{
-    return Observable.of(this.board);
+    return this.boardSubject.asObservable();
+  }
+
+  refresh(){
+    this.boardSubject.next(this.board);
+  }
+
+  activeSquare(squareId){
+    this.board.forEach(row => row.forEach((square) =>{
+      square.active = false;
+      if (square.id === squareId) {
+        square.active = true;
+        this.activePiece.next(square.piece);
+      }
+    }));
+    this.refresh();
+  }
+
+  getActivePiece(): Observable<Piece>{
+    return this.activePiece.asObservable();
   }
 }

@@ -6,6 +6,8 @@ export class Square {
   type: string;
   piece: Piece;
 
+  active: boolean = false;
+
   constructor(type: string){
     this.id = this.generateID();
 
@@ -14,7 +16,7 @@ export class Square {
 
   private generateID(){
     let now = new Date().getUTCMilliseconds();
-    let random = Math.floor((Math.random() * 1000) + 1);
+    let random = Math.floor((Math.random() * 100000) + 1);
     return now.toString() + random.toString();
   }
 
