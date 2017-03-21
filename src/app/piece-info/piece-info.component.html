@@ -3,7 +3,11 @@
   <md-card-subtitle>{{piece.type}}</md-card-subtitle>
 
   <md-card-content>
-    <button md-raised-button (click)="forward()">FORWARD</button>
+    <button md-raised-button (click)="forward()" color="primary">FORWARD</button>
+    <div class="rotation-actions">
+      <button md-raised-button (click)="rotateLeft()" color="primary">ROTATE LEFT</button>
+      <button md-raised-button (click)="rotateRight()" color="primary">ROTATE RIGHT</button>
+    </div>
   </md-card-content>
 </md-card>
 

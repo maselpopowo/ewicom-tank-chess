@@ -98,19 +98,22 @@ export class BoardService {
   }
 
   forward(pieceId){
-    this.board.forEach((row, rIndex) =>{
+    let pieceMoved = false;
+    for (let rIndex = 0; rIndex < this.board.length; rIndex++) {
+      let row = this.board[rIndex];
 
-      for (let cIndex = 0; cIndex < row.length; cIndex++) {
+      let cIndex = 0;
+      while (!pieceMoved && cIndex < row.length) {
         let square = row[cIndex];
         let piece = square.piece;
         if (piece && piece.id == pieceId) {
           let r = 0;
           let c = 0;
           if (piece.rotation == 90) {
-            r = 1;
+            r = -1;
           }
           if (piece.rotation == 270) {
-            r = -1;
+            r = 1;
           }
           if (piece.rotation == 0) {
             c = -1;
@@ -121,8 +124,25 @@ export class BoardService {
 
           this.board[(rIndex + r)][(cIndex + c)].setPiece(piece);
           square.removePiece();
+          pieceMoved = true;
+        }
+        cIndex++;
+      }
+    }
 
-          break;
+    this.activePiece.next();
+    this.inactiveAll();
+    this.refresh();
+  }
+
+  rotate(pieceId, direction){
+    this.board.forEach(row =>{
+
+      for (let cIndex = 0; cIndex < row.length; cIndex++) {
+        let square = row[cIndex];
+        let piece = square.piece;
+        if (piece && piece.id == pieceId) {
+          piece.rotate(direction)
         }
       }
 

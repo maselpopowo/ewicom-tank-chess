@@ -8,8 +8,16 @@ md-card {
 
 md-card-content {
   display: flex;
+  flex-direction: column;
 
   & > button {
     flex: 1;
+  }
+
+  & > .rotation-actions {
+    flex: 1;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
   }
 }

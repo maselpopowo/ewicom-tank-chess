@@ -22,4 +22,12 @@ export class PieceInfoComponent implements OnInit {
     this._boardService.forward(this.piece.id);
   }
 
+  rotateLeft(){
+    this._boardService.rotate(this.piece.id, 'LEFT');
+  }
+
+  rotateRight(){
+    this._boardService.rotate(this.piece.id, 'RIGHT');
+  }
+
 }
