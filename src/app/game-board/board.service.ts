@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { Square } from "./square";
 import "rxjs/add/observable/of";
+import { Piece } from "./piece";
 
 @Injectable()
 export class BoardService {
@@ -55,6 +56,13 @@ export class BoardService {
     this.board[2][11] = new Square('NONE');
     this.board[2][12] = new Square('NONE');
     this.board[2][13] = new Square('NONE');
+
+    this.board[3][2].setPiece(new Piece('Panzerkampfwagen 35(t)', 'Light tank', 180));
+    this.board[6][1].setPiece(new Piece('Panzerkampfwagen 35(t)', 'Light tank', 180));
+    this.board[7][2].setPiece(new Piece('Panzerkampfwagen 35(t)', 'Light tank', 180));
+    this.board[5][29].setPiece(new Piece('Panzerkampfwagen 35(t)', 'Light tank', 0));
+    this.board[6][29].setPiece(new Piece('Panzerkampfwagen 35(t)', 'Light tank', 0));
+    this.board[11][27].setPiece(new Piece('Panzerkampfwagen 35(t)', 'Light tank', 0));
   }
 
   getBoard(): Observable<Array<Array<Square>>>{

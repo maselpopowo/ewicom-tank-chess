@@ -1,5 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { PiecesService } from "../pieces.service";
 import { Piece } from "../game-board/piece";
 
 @Component({
@@ -11,11 +10,10 @@ export class PieceInfoComponent implements OnInit {
 
   piece: Piece;
 
-  constructor(private _piecesService: PiecesService){
+  constructor(){
   }
 
   ngOnInit(){
-    this._piecesService.getActive().subscribe(active => this.piece = active);
   }
 
 }

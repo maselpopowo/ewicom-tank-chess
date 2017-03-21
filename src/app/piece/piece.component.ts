@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Piece } from "../game-board/piece";
-import { PiecesService } from "../pieces.service";
 
 @Component({
   selector: 'etc-piece',
@@ -12,7 +11,7 @@ export class PieceComponent implements OnInit {
   @Input()
   piece: Piece;
 
-  constructor(private _piecesService: PiecesService){
+  constructor(){
   }
 
   ngOnInit(){
@@ -21,9 +20,4 @@ export class PieceComponent implements OnInit {
   rotation(): string{
     return 'rotate(' + this.piece.rotation + 'deg)';
   }
-
-  activate(){
-    this._piecesService.activate(this.piece);
-  }
-
 }

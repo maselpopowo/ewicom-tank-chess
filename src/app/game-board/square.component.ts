@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Square } from "./square";
-import { BoardService } from "./board.service";
 
 @Component({
   selector: 'etc-square',
@@ -12,7 +11,7 @@ export class SquareComponent implements OnInit {
   @Input()
   square: Square;
 
-  constructor(private _boardService: BoardService){
+  constructor(){
   }
 
   ngOnInit(){

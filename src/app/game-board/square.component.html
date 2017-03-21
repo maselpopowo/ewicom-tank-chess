@@ -1,3 +1,3 @@
 <div [ngStyle]="{'background-color': getBackgroundColor()}">
-  <ng-content></ng-content>
+  <etc-piece [piece]="square.piece" *ngIf="square.piece"></etc-piece>
 </div>
