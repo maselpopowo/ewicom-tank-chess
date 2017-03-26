@@ -5,6 +5,7 @@ import { MdCardModule } from "@angular/material";
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/observable/of";
 import { BoardService } from "./board.service";
+import { PieceComponent } from "../piece/piece.component";
 
 describe('GameBoardComponent', () =>{
   let component: GameBoardComponent;
@@ -14,7 +15,8 @@ describe('GameBoardComponent', () =>{
     TestBed.configureTestingModule({
       declarations: [
         GameBoardComponent,
-        SquareComponent
+        SquareComponent,
+        PieceComponent
       ],
       imports: [
         MdCardModule
@@ -40,5 +42,8 @@ describe('GameBoardComponent', () =>{
 class BoardServiceMock {
   getBoard(){
     return Observable.of([]);
+  }
+
+  refresh(){
   }
 }

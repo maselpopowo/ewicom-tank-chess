@@ -1,9 +1,11 @@
-import { Injectable } from "@angular/core";
+import { Inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { Square } from "./square";
 import "rxjs/add/observable/of";
 import { Piece } from "./piece";
 import { Subject } from "rxjs";
+import { MOCK_BOARD } from "./board.mock";
+import { Direction } from "./direction.enum";
 
 @Injectable()
 export class BoardService {
@@ -14,60 +16,8 @@ export class BoardService {
 
   activePiece: Subject<Piece> = new Subject();
 
-  constructor(){
-    for (let r = 0; r < 15; r++) {
-      let row = [];
-      for (let c = 0; c < 30; c++) {
-        row.push(new Square('GRASS'));
-      }
-      this.board.push(row);
-    }
-
-    this.board[7][4] = new Square('SAND');
-    this.board[8][4] = new Square('SAND');
-    this.board[9][4] = new Square('SAND');
-    this.board[10][4] = new Square('SAND');
-
-    this.board[4][20] = new Square('WATER');
-    this.board[4][21] = new Square('WATER');
-    this.board[4][22] = new Square('WATER');
-    this.board[5][20] = new Square('WATER');
-    this.board[5][21] = new Square('WATER');
-    this.board[5][22] = new Square('WATER');
-
-    this.board[12][15] = new Square('ROCK');
-    this.board[12][16] = new Square('ROCK');
-    this.board[12][17] = new Square('ROCK');
-    this.board[13][15] = new Square('ROCK');
-    this.board[14][15] = new Square('ROCK');
-
-    this.board[13][0] = new Square('NONE');
-    this.board[13][1] = new Square('NONE');
-    this.board[13][2] = new Square('NONE');
-    this.board[13][3] = new Square('NONE');
-    this.board[13][4] = new Square('NONE');
-    this.board[14][0] = new Square('NONE');
-    this.board[14][1] = new Square('NONE');
-    this.board[14][2] = new Square('NONE');
-    this.board[14][3] = new Square('NONE');
-    this.board[14][4] = new Square('NONE');
-
-    this.board[0][11] = new Square('NONE');
-    this.board[0][12] = new Square('NONE');
-    this.board[0][13] = new Square('NONE');
-    this.board[1][11] = new Square('NONE');
-    this.board[1][12] = new Square('NONE');
-    this.board[1][13] = new Square('NONE');
-    this.board[2][11] = new Square('NONE');
-    this.board[2][12] = new Square('NONE');
-    this.board[2][13] = new Square('NONE');
-
-    this.board[3][2].setPiece(new Piece('Panzerkampfwagen 35(t)', 'Light tank', 180));
-    this.board[6][1].setPiece(new Piece('Panzerkampfwagen 35(t)', 'Light tank', 180));
-    this.board[7][2].setPiece(new Piece('Panzerkampfwagen 35(t)', 'Light tank', 180));
-    this.board[5][29].setPiece(new Piece('Panzerkampfwagen 35(t)', 'Light tank', 0));
-    this.board[6][29].setPiece(new Piece('Panzerkampfwagen 35(t)', 'Light tank', 0));
-    this.board[11][27].setPiece(new Piece('Panzerkampfwagen 35(t)', 'Light tank', 0));
+  constructor(@Inject(MOCK_BOARD) private mockBoard: Array<Array<Square>>){
+    this.board = mockBoard;
   }
 
   getBoard(): Observable<Array<Array<Square>>>{
@@ -78,26 +28,26 @@ export class BoardService {
     this.boardSubject.next(this.board);
   }
 
-  activeSquare(squareId){
+  activeSquare(squareId: string){
     this.board.forEach(row => row.forEach((square) =>{
-      square.active = false;
-      if (square.id === squareId) {
-        square.active = true;
-        this.activePiece.next(square.piece);
+      square.setActive(false);
+      if (square.getId() === squareId) {
+        square.setActive(true);
+        this.activePiece.next(square.getPiece());
       }
     }));
     this.refresh();
   }
 
-  inactiveAll(){
-    this.board.forEach(row => row.forEach((square) => square.active = false));
+  private inactiveAll(){
+    this.board.forEach(row => row.forEach((square) => square.setActive(false)));
   }
 
   getActivePiece(): Observable<Piece>{
     return this.activePiece.asObservable();
   }
 
-  forward(pieceId){
+  forward(pieceId: string){
     let pieceMoved = false;
     for (let rIndex = 0; rIndex < this.board.length; rIndex++) {
       let row = this.board[rIndex];
@@ -105,20 +55,20 @@ export class BoardService {
       let cIndex = 0;
       while (!pieceMoved && cIndex < row.length) {
         let square = row[cIndex];
-        let piece = square.piece;
-        if (piece && piece.id == pieceId) {
+        let piece = square.getPiece();
+        if (piece && piece.getId() === pieceId) {
           let r = 0;
           let c = 0;
-          if (piece.rotation == 90) {
+          if (piece.getDirection() === Direction.UP) {
             r = -1;
           }
-          if (piece.rotation == 270) {
+          if (piece.getDirection() === Direction.DOWN) {
             r = 1;
           }
-          if (piece.rotation == 0) {
+          if (piece.getDirection() === Direction.LEFT) {
             c = -1;
           }
-          if (piece.rotation == 180) {
+          if (piece.getDirection() === Direction.RIGHT) {
             c = 1;
           }
 
@@ -135,14 +85,14 @@ export class BoardService {
     this.refresh();
   }
 
-  rotate(pieceId, direction){
+  rotate(pieceId: string, direction: Direction){
     this.board.forEach(row =>{
 
       for (let cIndex = 0; cIndex < row.length; cIndex++) {
         let square = row[cIndex];
-        let piece = square.piece;
-        if (piece && piece.id == pieceId) {
-          piece.rotate(direction)
+        let piece = square.getPiece();
+        if (piece && piece.getId() == pieceId) {
+          piece.setDirection(direction)
         }
       }
 
@@ -151,4 +101,6 @@ export class BoardService {
     this.inactiveAll();
     this.refresh();
   }
+
+
 }

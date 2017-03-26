@@ -1,14 +1,15 @@
 import { Piece } from "./piece";
+import { SquareType } from "./square-type.enum";
 export class Square {
 
-  id: string;
+  private id: string;
 
-  type: string;
-  piece: Piece;
+  private type: SquareType;
+  private piece: Piece;
 
-  active: boolean = false;
+  private active: boolean = false;
 
-  constructor(type: string){
+  constructor(type: SquareType){
     this.id = this.generateID();
 
     this.type = type;
@@ -20,11 +21,31 @@ export class Square {
     return now.toString() + random.toString();
   }
 
+  getPiece(): Piece{
+    return this.piece;
+  }
+
   setPiece(piece: Piece){
     this.piece = piece;
   }
 
   removePiece(){
     delete this.piece;
+  }
+
+  getId(){
+    return this.id;
+  }
+
+  getType(): SquareType{
+    return this.type;
+  }
+
+  isActive(): boolean{
+    return this.active;
+  }
+
+  setActive(state: boolean){
+    this.active = state;
   }
 }

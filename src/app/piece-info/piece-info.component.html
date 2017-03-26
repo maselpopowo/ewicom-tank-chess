@@ -5,8 +5,13 @@
   <md-card-content>
     <button md-raised-button (click)="forward()" color="primary">FORWARD</button>
     <div class="rotation-actions">
-      <button md-raised-button (click)="rotateLeft()" color="primary">ROTATE LEFT</button>
-      <button md-raised-button (click)="rotateRight()" color="primary">ROTATE RIGHT</button>
+      <button md-raised-button (click)="up()" color="primary" [disabled]="hasUpDirection()">UP</button>
+      <div>
+        <button md-raised-button (click)="left()" color="primary" [disabled]="hasLeftDirection()">LEFT</button>
+        <img [src]="piece.getImage()" [style.transform]="rotation()">
+        <button md-raised-button (click)="right()" color="primary" [disabled]="hasRightDirection()">RIGHT</button>
+      </div>
+      <button md-raised-button (click)="down()" color="primary" [disabled]="hasDownDirection()">DOWN</button>
     </div>
   </md-card-content>
 </md-card>

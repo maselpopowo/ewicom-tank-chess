@@ -15,9 +15,19 @@ md-card-content {
   }
 
   & > .rotation-actions {
-    flex: 1;
     margin-top: 10px;
+
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+
+    button {
+      width: 100px;
+      align-self: center;
+    }
+
+    div {
+      display: flex;
+      justify-content: space-between;
+    }
   }
 }

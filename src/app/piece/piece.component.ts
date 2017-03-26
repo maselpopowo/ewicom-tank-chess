@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { Piece } from "../game-board/piece";
 
 @Component({
@@ -18,6 +18,6 @@ export class PieceComponent implements OnInit {
   }
 
   rotation(): string{
-    return 'rotate(' + this.piece.rotation + 'deg)';
+    return `rotate(${this.piece.getRotation()})`;
   }
 }
