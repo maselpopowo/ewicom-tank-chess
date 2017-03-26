@@ -175,4 +175,53 @@ describe('BoardService', () =>{
       })
     );
   });
+
+  describe('#rotate', () =>{
+    it('should change piece direction',
+      inject([BoardService], (service: BoardService) =>{
+
+        let pieceToRotate = initialBoard[0][1].getPiece().getId();
+
+        service.getBoard().subscribe(board =>{
+          expect(board[0][1].getPiece().getId()).toEqual(pieceToRotate);
+          expect(board[0][1].getPiece().getDirection()).toEqual(Direction.DOWN);
+        });
+
+        service.rotate(pieceToRotate, Direction.DOWN);
+      })
+    );
+
+    it('should feed active piece with empty value after rotate piece',
+      inject([BoardService], (service: BoardService) =>{
+        service.getActivePiece().subscribe(piece =>{
+          expect(piece).toBeUndefined();
+        });
+
+        service.rotate('fakePiece', Direction.RIGHT);
+      })
+    );
+
+    it('should call refresh after rotate',
+      inject([BoardService], (service: BoardService) =>{
+        spyOn(service, 'refresh');
+
+        service.rotate('fakePiece', Direction.RIGHT);
+
+        expect(service.refresh).toHaveBeenCalled();
+      })
+    );
+
+    it('after piece rotate all squares should be inactive',
+      inject([BoardService], (service: BoardService) =>{
+
+        service.getBoard().subscribe(board =>{
+          board.forEach(row => row.forEach(col =>{
+            expect(col.isActive()).toBeFalsy();
+          }))
+        });
+
+        service.rotate('fakePiece', Direction.RIGHT);
+      })
+    );
+  });
 });

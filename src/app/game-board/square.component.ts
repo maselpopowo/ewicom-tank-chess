@@ -41,7 +41,7 @@ export class SquareComponent implements OnInit {
         break;
     }
 
-    return this.square.active ? 'red' : color;
+    return this.square.isActive() ? 'red' : color;
   }
 
   activate(){

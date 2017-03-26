@@ -1,3 +1,3 @@
-<div [ngStyle]="{'background-color': getBackgroundColor()}" (click)="activate()">
+<div [ngStyle]="{'background-color': getBackgroundColor()}" (click)="activate()" class="square">
   <etc-piece [piece]="square.getPiece()" *ngIf="square.getPiece()"></etc-piece>
 </div>
