@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from "@angular/core";
-import { Square } from "./square.interface";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { Square } from "./square";
+import { SquareType } from "./square-type.enum";
 
 @Component({
   selector: 'etc-square',
@@ -9,7 +10,10 @@ import { Square } from "./square.interface";
 export class SquareComponent implements OnInit {
 
   @Input()
-  square: Square = {type: 'NONE'};
+  square: Square;
+
+  @Output()
+  squareActivated: EventEmitter<string> = new EventEmitter();
 
   constructor(){
   }
@@ -19,25 +23,28 @@ export class SquareComponent implements OnInit {
 
   getBackgroundColor(){
     let color = 'none';
-    switch (this.square.type) {
-      case 'GRASS':
+    switch (this.square.getType()) {
+      case SquareType.GRASS:
         color = 'darkgreen';
         break;
-      case 'WATER':
+      case SquareType.WATER:
         color = 'darkblue';
         break;
-      case 'SAND':
+      case SquareType.SAND:
         color = 'darkgoldenrod';
         break;
-      case 'ROCK':
+      case SquareType.ROCK:
         color = '#808080';
         break;
-      case 'NONE':
+      case SquareType.NONE:
         color = 'none';
         break;
     }
 
-    return color;
+    return this.square.isActive() ? 'red' : color;
   }
 
+  activate(){
+    this.squareActivated.emit(this.square.getId());
+  }
 }

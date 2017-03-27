@@ -7,12 +7,17 @@ import { AppComponent } from "./app.component";
 import { GameBoardComponent } from "./game-board/game-board.component";
 import { SquareComponent } from "./game-board/square.component";
 import { BoardService } from "./game-board/board.service";
+import { PieceInfoComponent } from "./piece-info/piece-info.component";
+import { PieceComponent } from "./piece/piece.component";
+import { baseBoard, MOCK_BOARD } from "./game-board/board.mock";
 
 @NgModule({
   declarations: [
     AppComponent,
     GameBoardComponent,
-    SquareComponent
+    SquareComponent,
+    PieceInfoComponent,
+    PieceComponent
   ],
   imports: [
     BrowserModule,
@@ -21,7 +26,8 @@ import { BoardService } from "./game-board/board.service";
     MaterialModule
   ],
   providers: [
-    BoardService
+    BoardService,
+    {provide: MOCK_BOARD, useFactory: baseBoard}
   ],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,33 @@
+:host {
+  display: flex;
+}
+
+md-card {
+  flex: 1;
+}
+
+md-card-content {
+  display: flex;
+  flex-direction: column;
+
+  & > button {
+    flex: 1;
+  }
+
+  & > .rotation-actions {
+    margin-top: 10px;
+
+    display: flex;
+    flex-direction: column;
+
+    button {
+      width: 100px;
+      align-self: center;
+    }
+
+    div {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}

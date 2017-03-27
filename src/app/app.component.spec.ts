@@ -1,4 +1,4 @@
-import { TestBed, async } from "@angular/core/testing";
+import { async, TestBed } from "@angular/core/testing";
 import { MdToolbarModule } from "@angular/material";
 import { AppComponent } from "./app.component";
 import { GameBoardComponent } from "./game-board/game-board.component";
@@ -6,6 +6,8 @@ import { SquareComponent } from "./game-board/square.component";
 import { BoardService } from "./game-board/board.service";
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/observable/of";
+import { PieceInfoComponent } from "./piece-info/piece-info.component";
+import { PieceComponent } from "./piece/piece.component";
 
 describe('AppComponent', () =>{
   beforeEach(async(() =>{
@@ -13,7 +15,9 @@ describe('AppComponent', () =>{
       declarations: [
         AppComponent,
         GameBoardComponent,
-        SquareComponent
+        SquareComponent,
+        PieceInfoComponent,
+        PieceComponent
       ],
       imports: [
         MdToolbarModule
@@ -41,5 +45,12 @@ describe('AppComponent', () =>{
 class BoardServiceMock {
   getBoard(){
     return Observable.of([]);
+  }
+
+  refresh(){
+  }
+
+  getActivePiece(){
+    return Observable.of();
   }
 }
