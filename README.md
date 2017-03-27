@@ -1,4 +1,6 @@
 # EwicomTankChess
+[![Build Status](https://travis-ci.org/maselpopowo/ewicom-tank-chess.svg?branch=develop)](https://travis-ci.org/maselpopowo/ewicom-tank-chess)
+[![Coverage Status](https://coveralls.io/repos/github/maselpopowo/ewicom-tank-chess/badge.svg?branch=config%2Fissue-10_coveralls_integration)](https://coveralls.io/github/maselpopowo/ewicom-tank-chess?branch=develop)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0-rc.1.
 
