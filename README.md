@@ -1,4 +1,5 @@
 # EwicomTankChess
+[![Build Status](https://travis-ci.org/maselpopowo/ewicom-tank-chess.svg?branch=develop)](https://travis-ci.org/maselpopowo/ewicom-tank-chess)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0-rc.1.
 
