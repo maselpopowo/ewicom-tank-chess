@@ -40,7 +40,10 @@ export class BoardService {
   }
 
   private inactiveAll(){
-    this.board.forEach(row => row.forEach((square) => square.setActive(false)));
+    this.board.forEach(row => row.forEach((square) =>{
+      square.setActive(false);
+      //square.setExplosion(false);
+    }));
   }
 
   getActivePiece(): Observable<Piece>{
@@ -97,6 +100,43 @@ export class BoardService {
       }
 
     });
+    this.activePiece.next();
+    this.inactiveAll();
+    this.refresh();
+  }
+
+  fire(pieceId: string){
+    let explosionInserted = false;
+    for (let rIndex = 0; rIndex < this.board.length; rIndex++) {
+      let row = this.board[rIndex];
+
+      let cIndex = 0;
+      while (!explosionInserted && cIndex < row.length) {
+        let square = row[cIndex];
+        let piece = square.getPiece();
+        if (piece && piece.getId() === pieceId) {
+          let r = 0;
+          let c = 0;
+          if (piece.getDirection() === Direction.UP) {
+            r = -1;
+          }
+          if (piece.getDirection() === Direction.DOWN) {
+            r = 1;
+          }
+          if (piece.getDirection() === Direction.LEFT) {
+            c = -1;
+          }
+          if (piece.getDirection() === Direction.RIGHT) {
+            c = 1;
+          }
+
+          this.board[(rIndex + r)][(cIndex + c)].setExplosion(true);
+          explosionInserted = true;
+        }
+        cIndex++;
+      }
+    }
+
     this.activePiece.next();
     this.inactiveAll();
     this.refresh();

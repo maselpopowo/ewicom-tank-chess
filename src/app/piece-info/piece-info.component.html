@@ -10,7 +10,7 @@
         <button id="left-button" md-raised-button (click)="left()" color="primary" [disabled]="hasLeftDirection()">
           LEFT
         </button>
-        <img [src]="piece.getImage()" [style.transform]="rotation()">
+        <button id="fire-button" md-fab (click)="fire()" color="warn">FIRE</button>
         <button id="right-button" md-raised-button (click)="right()" color="primary" [disabled]="hasRightDirection()">
           RIGHT
         </button>

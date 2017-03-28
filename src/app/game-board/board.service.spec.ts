@@ -224,4 +224,51 @@ describe('BoardService', () =>{
       })
     );
   });
+
+  describe('#fire', () =>{
+    it('should set square as hit one step ahead',
+      inject([BoardService], (service: BoardService) =>{
+        let idOfShooter = initialBoard[3][6].getPiece().getId();
+
+        service.getBoard().subscribe(board =>{
+          expect(board[4][6].isExplosion()).toBeTruthy();
+        });
+
+        service.fire(idOfShooter);
+      })
+    );
+
+    it('should feed active piece with empty value after fire',
+      inject([BoardService], (service: BoardService) =>{
+        service.getActivePiece().subscribe(piece =>{
+          expect(piece).toBeUndefined();
+        });
+
+        service.fire('fakePiece');
+      })
+    );
+
+    it('should call refresh after fire',
+      inject([BoardService], (service: BoardService) =>{
+        spyOn(service, 'refresh');
+
+        service.fire('fakePiece');
+
+        expect(service.refresh).toHaveBeenCalled();
+      })
+    );
+
+    it('after fire all squares should be inactive',
+      inject([BoardService], (service: BoardService) =>{
+
+        service.getBoard().subscribe(board =>{
+          board.forEach(row => row.forEach(col =>{
+            expect(col.isActive()).toBeFalsy();
+          }))
+        });
+
+        service.fire('fakePiece');
+      })
+    );
+  });
 });

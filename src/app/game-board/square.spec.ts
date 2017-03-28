@@ -57,4 +57,17 @@ describe('Square class', () =>{
     square.setActive(true);
     expect(square.isActive()).toBeTruthy();
   });
+
+  it('should set explosion to false on init', () =>{
+    let square = new Square(SquareType.GRASS);
+
+    expect(square.isExplosion()).toBeFalsy();
+  });
+
+  it('should set explosion', () =>{
+    let square = new Square(SquareType.GRASS);
+    square.setExplosion(true);
+
+    expect(square.isExplosion()).toBeTruthy();
+  });
 });

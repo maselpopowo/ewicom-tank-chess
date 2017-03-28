@@ -1,3 +1,4 @@
 <div [ngStyle]="{'background-color': getBackgroundColor()}" (click)="activate()" class="square">
   <etc-piece [piece]="square.getPiece()" *ngIf="square.getPiece()"></etc-piece>
+  <img src="/src/assets/explosion.png" *ngIf="square.isExplosion()"/>
 </div>
