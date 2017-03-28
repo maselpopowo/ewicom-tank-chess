@@ -3,6 +3,10 @@
   <md-card-subtitle>{{piece.type}}</md-card-subtitle>
 
   <md-card-content>
+    <div id="specification">
+      Range of fire: {{piece.getRangeOfFire()}}
+    </div>
+
     <button id="forward-button" md-raised-button (click)="forward()" color="primary">FORWARD</button>
     <div class="rotation-actions">
       <button id="up-button" md-raised-button (click)="up()" color="primary" [disabled]="hasUpDirection()">UP</button>

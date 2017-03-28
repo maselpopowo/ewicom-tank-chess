@@ -270,5 +270,33 @@ describe('BoardService', () =>{
         service.fire('fakePiece');
       })
     );
+
+    it('should set square as hit with steps ahead calculated from piece range of shot',
+      inject([BoardService], (service: BoardService) =>{
+
+        let longShooter = new Piece('long-shooter', 'type', Direction.LEFT, 'img', Direction.LEFT);
+        longShooter.setRangeOfFire(3);
+        service.setPiece(0, 9, longShooter);
+
+        service.getBoard().subscribe(board =>{
+          expect(board[0][6].isExplosion()).toBeTruthy();
+        });
+
+        service.fire(longShooter.getId());
+      })
+    )
   });
+
+  it('should set piece on board',
+    inject([BoardService], (service: BoardService) =>{
+      let pieceToSet = new Piece('name', 'type', Direction.LEFT, 'image-path', Direction.LEFT);
+
+      service.getBoard().subscribe(board =>{
+        expect(board[0][9].getPiece()).toBeDefined();
+        expect(board[0][9].getPiece().getId()).toEqual(pieceToSet.getId());
+      });
+
+      service.setPiece(0, 9, pieceToSet);
+    })
+  )
 });

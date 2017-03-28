@@ -117,17 +117,18 @@ export class BoardService {
         if (piece && piece.getId() === pieceId) {
           let r = 0;
           let c = 0;
+          let rangeOfFire = piece.getRangeOfFire();
           if (piece.getDirection() === Direction.UP) {
-            r = -1;
+            r = -rangeOfFire;
           }
           if (piece.getDirection() === Direction.DOWN) {
-            r = 1;
+            r = rangeOfFire;
           }
           if (piece.getDirection() === Direction.LEFT) {
-            c = -1;
+            c = -rangeOfFire;
           }
           if (piece.getDirection() === Direction.RIGHT) {
-            c = 1;
+            c = rangeOfFire;
           }
 
           this.board[(rIndex + r)][(cIndex + c)].setExplosion(true);
@@ -139,6 +140,11 @@ export class BoardService {
 
     this.activePiece.next();
     this.inactiveAll();
+    this.refresh();
+  }
+
+  setPiece(row: number, column: number, piece: Piece){
+    this.board[row][column].setPiece(piece);
     this.refresh();
   }
 

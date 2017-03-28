@@ -9,6 +9,8 @@ export class Piece {
   private image: string;
   private imageDirection: Direction;
 
+  private rangeOfFire: number = 1;
+
   constructor(name: string, type: string, direction: Direction, image: string, imageDirection: Direction){
     this.id = this.generateID();
 
@@ -52,5 +54,13 @@ export class Piece {
 
   setDirection(newDirection: Direction){
     this.direction = newDirection;
+  }
+
+  setRangeOfFire(range: number){
+    this.rangeOfFire = range;
+  }
+
+  getRangeOfFire(): number{
+    return this.rangeOfFire;
   }
 }
