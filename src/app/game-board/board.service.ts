@@ -16,8 +16,14 @@ export class BoardService {
 
   activePiece: Subject<Piece> = new Subject();
 
+  private boardWidth: number;
+  private boardHeight: number;
+
   constructor(@Inject(MOCK_BOARD) private mockBoard: Array<Array<Square>>){
     this.board = mockBoard;
+
+    this.boardWidth = this.board[0].length;
+    this.boardHeight = this.board.length;
   }
 
   getBoard(): Observable<Array<Array<Square>>>{
@@ -43,6 +49,12 @@ export class BoardService {
     this.board.forEach(row => row.forEach((square) =>{
       square.setActive(false);
       //square.setExplosion(false);
+    }));
+  }
+
+  private removeExplosionForAll(){
+    this.board.forEach(row => row.forEach((square) =>{
+      square.setExplosion(false);
     }));
   }
 
@@ -106,6 +118,8 @@ export class BoardService {
   }
 
   fire(pieceId: string){
+    this.removeExplosionForAll();
+
     let explosionInserted = false;
     for (let rIndex = 0; rIndex < this.board.length; rIndex++) {
       let row = this.board[rIndex];
@@ -115,23 +129,50 @@ export class BoardService {
         let square = row[cIndex];
         let piece = square.getPiece();
         if (piece && piece.getId() === pieceId) {
-          let r = 0;
-          let c = 0;
+          let squares = [];
           let rangeOfFire = piece.getRangeOfFire();
           if (piece.getDirection() === Direction.UP) {
-            r = -rangeOfFire;
+            let step = rIndex - 1;
+            while (step >= (rIndex - rangeOfFire) && step >= 0) {
+              squares.push(this.board[step][cIndex]);
+              step--
+            }
           }
           if (piece.getDirection() === Direction.DOWN) {
-            r = rangeOfFire;
+            let step = rIndex + 1;
+            while (step <= (rIndex + rangeOfFire) && step <= (this.boardHeight - 1)) {
+              squares.push(this.board[step][cIndex]);
+              step++
+            }
           }
           if (piece.getDirection() === Direction.LEFT) {
-            c = -rangeOfFire;
+            let step = cIndex - 1;
+            while (step >= (cIndex - rangeOfFire) && step >= 0) {
+              squares.push(this.board[rIndex][step]);
+              step--
+            }
           }
           if (piece.getDirection() === Direction.RIGHT) {
-            c = rangeOfFire;
+            let step = cIndex + 1;
+            while (step <= (cIndex + rangeOfFire) && step <= (this.boardWidth - 1)) {
+              squares.push(this.board[rIndex][step]);
+              step++
+            }
           }
 
-          this.board[(rIndex + r)][(cIndex + c)].setExplosion(true);
+          let pieceFinded = false;
+          squares.forEach((s: Square, index: number) =>{
+            if (s.getPiece() && !pieceFinded) {
+              s.removePiece();
+              s.setExplosion(true);
+              pieceFinded = true;
+            }
+
+            if (index === (squares.length - 1) && !pieceFinded) {
+              s.setExplosion(true);
+            }
+          });
+
           explosionInserted = true;
         }
         cIndex++;

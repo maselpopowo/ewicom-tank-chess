@@ -226,18 +226,6 @@ describe('BoardService', () =>{
   });
 
   describe('#fire', () =>{
-    it('should set square as hit one step ahead',
-      inject([BoardService], (service: BoardService) =>{
-        let idOfShooter = initialBoard[3][6].getPiece().getId();
-
-        service.getBoard().subscribe(board =>{
-          expect(board[4][6].isExplosion()).toBeTruthy();
-        });
-
-        service.fire(idOfShooter);
-      })
-    );
-
     it('should feed active piece with empty value after fire',
       inject([BoardService], (service: BoardService) =>{
         service.getActivePiece().subscribe(piece =>{
@@ -279,12 +267,16 @@ describe('BoardService', () =>{
         service.setPiece(0, 9, longShooter);
 
         service.getBoard().subscribe(board =>{
+          console.log(board[0][8].isExplosion());
+          console.log(board[0][7].isExplosion());
+          console.log(board[0][6].isExplosion());
+          console.log(board[0][5].isExplosion());
           expect(board[0][6].isExplosion()).toBeTruthy();
         });
 
         service.fire(longShooter.getId());
       })
-    )
+    );
   });
 
   it('should set piece on board',
@@ -298,5 +290,182 @@ describe('BoardService', () =>{
 
       service.setPiece(0, 9, pieceToSet);
     })
-  )
+  );
+
+  it('should remove piece if other hit',
+    inject([BoardService], (service: BoardService) =>{
+      let shooter = new Piece('shooter', 'type', Direction.LEFT, 'image-path', Direction.LEFT);
+      shooter.setRangeOfFire(3);
+
+      let target = new Piece('target', 'type', Direction.LEFT, 'image-path', Direction.LEFT);
+
+      service.setPiece(0, 2, target);
+      service.setPiece(0, 5, shooter);
+
+      service.getBoard().subscribe(board =>{
+        expect(board[0][2].getPiece()).toBeUndefined();
+      });
+
+      service.fire(shooter.getId());
+    })
+  );
+
+  describe('should remove piece if between shooter and target square is one', () =>{
+
+    let target = new Piece('target', 'type', Direction.LEFT, 'image-path', Direction.LEFT);
+    let other = new Piece('other', 'type', Direction.LEFT, 'image-path', Direction.LEFT);
+    let shooter = new Piece('shooter', 'type', Direction.LEFT, 'image-path', Direction.LEFT);
+    shooter.setRangeOfFire(5);
+
+    it('shoot with left direction',
+      inject([BoardService], (service: BoardService) =>{
+        shooter.setDirection(Direction.LEFT);
+        service.setPiece(0, 9, shooter);
+
+        service.setPiece(0, 7, target);
+
+        service.getBoard().subscribe(board =>{
+          expect(board[0][7].getPiece()).toBeUndefined();
+          expect(board[0][7].isExplosion()).toBeTruthy();
+        });
+
+        service.fire(shooter.getId());
+      })
+    );
+
+    it('shoot with left direction to maximum range',
+      inject([BoardService], (service: BoardService) =>{
+        shooter.setDirection(Direction.LEFT);
+        service.setPiece(0, 9, shooter);
+
+        service.setPiece(0, 4, target);
+
+        service.getBoard().subscribe(board =>{
+          expect(board[0][4].getPiece()).toBeUndefined();
+          expect(board[0][4].isExplosion()).toBeTruthy();
+        });
+
+        service.fire(shooter.getId());
+      })
+    );
+
+    it('shoot with right direction',
+      inject([BoardService], (service: BoardService) =>{
+        shooter.setDirection(Direction.RIGHT);
+        service.setPiece(0, 7, shooter);
+
+        service.setPiece(0, 9, target);
+
+        service.getBoard().subscribe(board =>{
+          expect(board[0][9].getPiece()).toBeUndefined();
+          expect(board[0][9].isExplosion()).toBeTruthy();
+        });
+
+        service.fire(shooter.getId());
+      })
+    );
+
+    it('shoot with right direction to maximum range',
+      inject([BoardService], (service: BoardService) =>{
+        shooter.setDirection(Direction.RIGHT);
+        service.setPiece(0, 4, shooter);
+
+        service.setPiece(0, 9, target);
+
+        service.getBoard().subscribe(board =>{
+          expect(board[0][9].getPiece()).toBeUndefined();
+          expect(board[0][9].isExplosion()).toBeTruthy();
+        });
+
+        service.fire(shooter.getId());
+      })
+    );
+
+    it('shoot with down direction',
+      inject([BoardService], (service: BoardService) =>{
+        shooter.setDirection(Direction.DOWN);
+        service.setPiece(0, 3, shooter);
+
+        service.setPiece(3, 3, target);
+
+        service.getBoard().subscribe(board =>{
+          expect(board[3][3].getPiece()).toBeUndefined();
+          expect(board[3][3].isExplosion()).toBeTruthy();
+        });
+
+        service.fire(shooter.getId());
+      })
+    );
+
+    it('shoot with down direction to maximum range',
+      inject([BoardService], (service: BoardService) =>{
+        shooter.setDirection(Direction.DOWN);
+        shooter.setRangeOfFire(2);
+        service.setPiece(0, 3, shooter);
+
+        service.setPiece(2, 3, target);
+
+        service.getBoard().subscribe(board =>{
+          expect(board[2][3].getPiece()).toBeUndefined();
+          expect(board[2][3].isExplosion()).toBeTruthy();
+        });
+
+        service.fire(shooter.getId());
+      })
+    );
+
+    it('shoot with up direction',
+      inject([BoardService], (service: BoardService) =>{
+        shooter.setDirection(Direction.UP);
+        service.setPiece(3, 3, shooter);
+
+        service.setPiece(1, 3, target);
+
+        service.getBoard().subscribe(board =>{
+          expect(board[1][3].getPiece()).toBeUndefined();
+          expect(board[1][3].isExplosion()).toBeTruthy();
+        });
+
+        service.fire(shooter.getId());
+      })
+    );
+
+    it('shoot with up direction to maximum range',
+      inject([BoardService], (service: BoardService) =>{
+        shooter.setDirection(Direction.UP);
+        shooter.setRangeOfFire(2);
+        service.setPiece(3, 3, shooter);
+
+        service.setPiece(1, 3, target);
+
+        service.getBoard().subscribe(board =>{
+          expect(board[1][3].getPiece()).toBeUndefined();
+          expect(board[1][3].isExplosion()).toBeTruthy();
+        });
+
+        service.fire(shooter.getId());
+      })
+    );
+
+    it('shoot with up direction should hit only first piece',
+      inject([BoardService], (service: BoardService) =>{
+        shooter.setDirection(Direction.UP);
+        shooter.setRangeOfFire(2);
+        service.setPiece(3, 3, shooter);
+
+        service.setPiece(2, 3, target);
+        service.setPiece(1, 3, other);
+
+        service.getBoard().subscribe(board =>{
+          expect(board[2][3].getPiece()).toBeUndefined();
+          expect(board[2][3].isExplosion()).toBeTruthy();
+          expect(board[1][3].getPiece().getId()).toEqual(other.getId());
+          expect(board[1][3].isExplosion()).toBeFalsy();
+        });
+
+        service.fire(shooter.getId());
+      })
+    );
+
+  });
 });
