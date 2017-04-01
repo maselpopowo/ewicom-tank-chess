@@ -129,36 +129,7 @@ export class BoardService {
         let square = row[cIndex];
         let piece = square.getPiece();
         if (piece && piece.getId() === pieceId) {
-          let squares = [];
-          let rangeOfFire = piece.getRangeOfFire();
-          if (piece.getDirection() === Direction.UP) {
-            let step = rIndex - 1;
-            while (step >= (rIndex - rangeOfFire) && step >= 0) {
-              squares.push(this.board[step][cIndex]);
-              step--
-            }
-          }
-          if (piece.getDirection() === Direction.DOWN) {
-            let step = rIndex + 1;
-            while (step <= (rIndex + rangeOfFire) && step <= (this.boardHeight - 1)) {
-              squares.push(this.board[step][cIndex]);
-              step++
-            }
-          }
-          if (piece.getDirection() === Direction.LEFT) {
-            let step = cIndex - 1;
-            while (step >= (cIndex - rangeOfFire) && step >= 0) {
-              squares.push(this.board[rIndex][step]);
-              step--
-            }
-          }
-          if (piece.getDirection() === Direction.RIGHT) {
-            let step = cIndex + 1;
-            while (step <= (cIndex + rangeOfFire) && step <= (this.boardWidth - 1)) {
-              squares.push(this.board[rIndex][step]);
-              step++
-            }
-          }
+          let squares = this.getSquares(piece.getRangeOfFire(), rIndex, cIndex, piece.getDirection());
 
           let pieceFinded = false;
           squares.forEach((s: Square, index: number) =>{
@@ -182,6 +153,43 @@ export class BoardService {
     this.activePiece.next();
     this.inactiveAll();
     this.refresh();
+  }
+
+  private getSquares(number: number, rIndex: number, cIndex: number, direction: Direction): Array<Square>{
+    let cStep = cIndex;
+    let rStep = rIndex;
+    let stop;
+    let increment;
+    switch (direction) {
+      case Direction.LEFT:
+        cStep = cIndex - 1
+        stop = () => cStep >= (cIndex - number) && cStep >= 0
+        increment = () => cStep--;
+        break
+      case Direction.RIGHT:
+        cStep = cIndex + 1
+        stop = () => cStep <= (cIndex + number) && cStep <= (this.boardWidth - 1)
+        increment = () => cStep++;
+        break
+      case Direction.DOWN:
+        rStep = rIndex + 1
+        stop = () => rStep <= (rIndex + number) && rStep <= this.boardHeight - 1
+        increment = () => rStep++;
+        break
+      case Direction.UP:
+        rStep = rIndex - 1
+        stop = () => rStep >= (rIndex - number) && rStep >= 0
+        increment = () => rStep--;
+        break
+    }
+
+    let squares = [];
+    while (stop()) {
+      squares.push(this.board[rStep][cStep]);
+      increment()
+    }
+
+    return squares;
   }
 
   setPiece(row: number, column: number, piece: Piece){
