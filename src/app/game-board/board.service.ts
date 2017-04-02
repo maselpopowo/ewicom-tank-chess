@@ -7,10 +7,13 @@ import { Subject } from "rxjs";
 import { MOCK_BOARD } from "./board.mock";
 import { Direction } from "./direction.enum";
 
+import * as _ from "lodash";
+import { BoardTemplate } from "./board-template.interface";
+
 @Injectable()
 export class BoardService {
 
-  board: Array<Array<Square>> = [];
+  board: Array<Square> = [];
 
   boardSubject: Subject<Array<Array<Square>>> = new Subject();
 
@@ -19,11 +22,11 @@ export class BoardService {
   private boardWidth: number;
   private boardHeight: number;
 
-  constructor(@Inject(MOCK_BOARD) private mockBoard: Array<Array<Square>>){
-    this.board = mockBoard;
+  constructor(@Inject(MOCK_BOARD) private mockBoard: BoardTemplate){
+    this.board = mockBoard.data;
 
-    this.boardWidth = this.board[0].length;
-    this.boardHeight = this.board.length;
+    this.boardWidth = mockBoard.width;
+    this.boardHeight = mockBoard.height;
   }
 
   getBoard(): Observable<Array<Array<Square>>>{
@@ -31,31 +34,31 @@ export class BoardService {
   }
 
   refresh(){
-    this.boardSubject.next(this.board);
+    this.boardSubject.next(_.chunk(this.board, this.boardWidth));
   }
 
   activeSquare(squareId: string){
-    this.board.forEach(row => row.forEach((square) =>{
+    this.board.forEach((square: Square) =>{
       square.setActive(false);
       if (square.getId() === squareId) {
         square.setActive(true);
         this.activePiece.next(square.getPiece());
       }
-    }));
+    });
+
     this.refresh();
   }
 
   private inactiveAll(){
-    this.board.forEach(row => row.forEach((square) =>{
+    this.board.forEach((square: Square) =>{
       square.setActive(false);
-      //square.setExplosion(false);
-    }));
+    });
   }
 
   private removeExplosionForAll(){
-    this.board.forEach(row => row.forEach((square) =>{
+    this.board.forEach((square: Square) =>{
       square.setExplosion(false);
-    }));
+    });
   }
 
   getActivePiece(): Observable<Piece>{
@@ -63,55 +66,39 @@ export class BoardService {
   }
 
   forward(pieceId: string){
-    let pieceMoved = false;
-    for (let rIndex = 0; rIndex < this.board.length; rIndex++) {
-      let row = this.board[rIndex];
-
-      let cIndex = 0;
-      while (!pieceMoved && cIndex < row.length) {
-        let square = row[cIndex];
-        let piece = square.getPiece();
-        if (piece && piece.getId() === pieceId) {
-          let r = 0;
-          let c = 0;
-          if (piece.getDirection() === Direction.UP) {
-            r = -1;
-          }
-          if (piece.getDirection() === Direction.DOWN) {
-            r = 1;
-          }
-          if (piece.getDirection() === Direction.LEFT) {
-            c = -1;
-          }
-          if (piece.getDirection() === Direction.RIGHT) {
-            c = 1;
-          }
-
-          this.board[(rIndex + r)][(cIndex + c)].setPiece(piece);
-          square.removePiece();
-          pieceMoved = true;
-        }
-        cIndex++;
-      }
-    }
+    this.findPieceAndApply(pieceId, (piece, index, square) =>{
+      this.movePieceInDirection(piece, index, square);
+    });
 
     this.activePiece.next();
     this.inactiveAll();
     this.refresh();
   }
 
+  private movePieceInDirection(piece: Piece, index: number, square: Square){
+    let step;
+    if (piece.getDirection() === Direction.UP) {
+      step = -this.boardWidth;
+    }
+    if (piece.getDirection() === Direction.DOWN) {
+      step = this.boardWidth;
+    }
+    if (piece.getDirection() === Direction.LEFT) {
+      step = -1;
+    }
+    if (piece.getDirection() === Direction.RIGHT) {
+      step = 1;
+    }
+
+    this.board[(index + step)].setPiece(piece);
+    square.removePiece();
+  }
+
   rotate(pieceId: string, direction: Direction){
-    this.board.forEach(row =>{
-
-      for (let cIndex = 0; cIndex < row.length; cIndex++) {
-        let square = row[cIndex];
-        let piece = square.getPiece();
-        if (piece && piece.getId() == pieceId) {
-          piece.setDirection(direction)
-        }
-      }
-
+    this.findPieceAndApply(pieceId, (piece: Piece) =>{
+      piece.setDirection(direction);
     });
+
     this.activePiece.next();
     this.inactiveAll();
     this.refresh();
@@ -120,82 +107,100 @@ export class BoardService {
   fire(pieceId: string){
     this.removeExplosionForAll();
 
-    let explosionInserted = false;
-    for (let rIndex = 0; rIndex < this.board.length; rIndex++) {
-      let row = this.board[rIndex];
-
-      let cIndex = 0;
-      while (!explosionInserted && cIndex < row.length) {
-        let square = row[cIndex];
-        let piece = square.getPiece();
-        if (piece && piece.getId() === pieceId) {
-          let squares = this.getSquares(piece.getRangeOfFire(), rIndex, cIndex, piece.getDirection());
-
-          let pieceFinded = false;
-          squares.forEach((s: Square, index: number) =>{
-            if (s.getPiece() && !pieceFinded) {
-              s.removePiece();
-              s.setExplosion(true);
-              pieceFinded = true;
-            }
-
-            if (index === (squares.length - 1) && !pieceFinded) {
-              s.setExplosion(true);
-            }
-          });
-
-          explosionInserted = true;
-        }
-        cIndex++;
-      }
-    }
+    this.findPieceAndApply(pieceId, (piece: Piece, index: number) =>{
+      let squares = this.getSquaresToSetHit(piece, index);
+      this.removeFirstFoundPiece(squares);
+    });
 
     this.activePiece.next();
     this.inactiveAll();
     this.refresh();
   }
 
-  private getSquares(number: number, rIndex: number, cIndex: number, direction: Direction): Array<Square>{
-    let cStep = cIndex;
-    let rStep = rIndex;
-    let stop;
-    let increment;
-    switch (direction) {
-      case Direction.LEFT:
-        cStep = cIndex - 1
-        stop = () => cStep >= (cIndex - number) && cStep >= 0
-        increment = () => cStep--;
-        break
+  private findPieceAndApply(pieceId: string, callback: (piece: Piece, index: number, square: Square) => void){
+    let notFound = true;
+    for (let i = 0; i < this.board.length && notFound; i++) {
+      let square = this.board[i];
+      let piece = square.getPiece();
+      if (piece && piece.getId() === pieceId) {
+        callback(piece, i, square);
+        notFound = false;
+      }
+    }
+  }
+
+  private getSquaresToSetHit(piece: Piece, currentIndex: number): Square[]{
+    let squares = [];
+    let isNotLastSquare = () => squares.length < piece.getRangeOfFire();
+    let isNotAfterLastColumn = (index: number) => index <= this.getIndexOfLastElementInRow(currentIndex);
+    let isNotBeforeFirstColumn = (index: number) => index >= this.getIndexOfFirstElementInRow(currentIndex);
+    let isNotBeforeFirstRow = (index: number) => this.getIndexOfCurrentRow(index) >= 0;
+    let isNotAfterLastRow = (index: number) => this.getIndexOfCurrentRow(index) <= this.getIndexOfLastRow();
+
+    let startIndex;
+    switch (piece.getDirection()) {
       case Direction.RIGHT:
-        cStep = cIndex + 1
-        stop = () => cStep <= (cIndex + number) && cStep <= (this.boardWidth - 1)
-        increment = () => cStep++;
+        startIndex = currentIndex + 1;
+        for (; isNotLastSquare() && isNotAfterLastColumn(startIndex); startIndex++) {
+          squares.push(this.board[startIndex]);
+        }
         break
-      case Direction.DOWN:
-        rStep = rIndex + 1
-        stop = () => rStep <= (rIndex + number) && rStep <= this.boardHeight - 1
-        increment = () => rStep++;
+      case Direction.LEFT:
+        startIndex = currentIndex - 1;
+        for (; isNotLastSquare() && isNotBeforeFirstColumn(startIndex); startIndex--) {
+          squares.push(this.board[startIndex]);
+        }
         break
       case Direction.UP:
-        rStep = rIndex - 1
-        stop = () => rStep >= (rIndex - number) && rStep >= 0
-        increment = () => rStep--;
+        startIndex = currentIndex - this.boardWidth;
+        for (; isNotLastSquare() && isNotBeforeFirstRow(startIndex); startIndex -= this.boardWidth) {
+          squares.push(this.board[startIndex]);
+        }
         break
-    }
-
-    let squares = [];
-    while (stop()) {
-      squares.push(this.board[rStep][cStep]);
-      increment()
+      case Direction.DOWN:
+        startIndex = currentIndex + this.boardWidth;
+        for (; isNotLastSquare() && isNotAfterLastRow(startIndex); startIndex += this.boardWidth) {
+          squares.push(this.board[startIndex]);
+        }
+        break
     }
 
     return squares;
   }
 
-  setPiece(row: number, column: number, piece: Piece){
-    this.board[row][column].setPiece(piece);
-    this.refresh();
+  private removeFirstFoundPiece(squares: Square[]){
+    let found = false;
+    squares.forEach((s: Square, index: number) =>{
+      if (s.getPiece() && !found) {
+        s.removePiece();
+        s.setExplosion(true);
+        found = true;
+      }
+
+      if (index === (squares.length - 1) && !found) {
+        s.setExplosion(true);
+      }
+    });
   }
 
+  private getIndexOfLastElementInRow(element: number){
+    return (this.getIndexOfCurrentRow(element) + 1) * this.boardWidth;
+  }
 
+  private getIndexOfFirstElementInRow(element: number){
+    return this.getIndexOfCurrentRow(element) * this.boardWidth;
+  }
+
+  private getIndexOfCurrentRow(element: number){
+    return Math.floor(element / this.boardWidth);
+  }
+
+  private getIndexOfLastRow(){
+    return (this.board.length / this.boardWidth) - 1;
+  }
+
+  setPiece(index: number, piece: Piece){
+    this.board[index].setPiece(piece);
+    this.refresh();
+  }
 }
