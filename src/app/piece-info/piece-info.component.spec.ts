@@ -140,6 +140,19 @@ describe('PieceInfoComponent', () =>{
     let element = fixture.debugElement.query(By.css('#down-button'));
     expect(element.properties['disabled']).toBeTruthy()
   });
+
+  it('should call fire method from BoardService when click fire-button',
+    inject([BoardService], (service: BoardService) =>{
+      let piece = new Piece('piece name', 'type', Direction.LEFT, 'image', Direction.LEFT);
+      component.piece = piece;
+      fixture.detectChanges();
+      spyOn(service, 'fire');
+
+      let element = fixture.debugElement.query(By.css('#fire-button'));
+      element.triggerEventHandler('click', null);
+
+      expect(service.fire).toHaveBeenCalledWith(piece.getId());
+    }))
 });
 
 class BoardServiceMock {
@@ -151,5 +164,8 @@ class BoardServiceMock {
   }
 
   rotate(){
+  }
+
+  fire(){
   }
 }

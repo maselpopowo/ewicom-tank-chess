@@ -88,4 +88,14 @@ describe('SquareComponent', () =>{
 
     expect(squareElement.styles['background-color']).toEqual('darkgoldenrod');
   });
+
+  it('square with explosion set should show image', () =>{
+    let square = new Square(SquareType.ROCK);
+    square.setExplosion(true);
+    component.square = square;
+    fixture.detectChanges();
+
+    let image = fixture.debugElement.nativeElement.querySelector('img');
+    expect(image).not.toBeNull()
+  })
 });

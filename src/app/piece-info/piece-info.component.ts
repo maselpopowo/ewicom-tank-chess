@@ -63,4 +63,8 @@ export class PieceInfoComponent implements OnInit {
     return this.piece.getDirection() === direction;
   }
 
+  fire(){
+    this._boardService.fire(this.piece.getId());
+  }
+
 }

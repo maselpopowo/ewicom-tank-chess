@@ -8,6 +8,7 @@ export class Square {
   private piece: Piece;
 
   private active: boolean = false;
+  private explosion: boolean = false;
 
   constructor(type: SquareType){
     this.id = this.generateID();
@@ -47,5 +48,13 @@ export class Square {
 
   setActive(state: boolean){
     this.active = state;
+  }
+
+  setExplosion(state: boolean){
+    this.explosion = state;
+  }
+
+  isExplosion(): boolean{
+    return this.explosion;
   }
 }

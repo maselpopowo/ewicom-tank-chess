@@ -20,14 +20,23 @@ md-card-content {
     display: flex;
     flex-direction: column;
 
-    button {
+    button:not(#fire-button) {
       width: 100px;
+    }
+
+    button {
       align-self: center;
     }
 
     div {
+      margin-top: 5px;
+      margin-bottom: 5px;
       display: flex;
       justify-content: space-between;
     }
   }
+}
+
+#specification {
+  margin-bottom: 15px;
 }
