@@ -2,10 +2,10 @@ import { Inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { Square } from "./square";
 import "rxjs/add/observable/of";
-import { Piece } from "./piece";
+import { Piece } from "../piece/piece";
 import { Subject } from "rxjs";
 import { MOCK_BOARD } from "./board.mock";
-import { Direction } from "./direction.enum";
+import { Direction } from "../piece/direction.enum";
 
 import * as _ from "lodash";
 import { BoardTemplate } from "./board-template.interface";

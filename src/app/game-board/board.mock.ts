@@ -1,7 +1,7 @@
 import { Square } from "./square";
-import { Piece } from "./piece";
+import { Piece } from "../piece/piece";
 import { OpaqueToken } from "@angular/core";
-import { Direction } from "./direction.enum";
+import { Direction } from "../piece/direction.enum";
 import { SquareType } from "./square-type.enum";
 import { BoardTemplate } from "./board-template.interface";
 

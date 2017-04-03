@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { Piece } from "../game-board/piece";
+import { Piece } from "../piece/piece";
 import { BoardService } from "../game-board/board.service";
-import { Direction } from "../game-board/direction.enum";
+import { Direction } from "../piece/direction.enum";
 
 @Component({
   selector: 'etc-piece-info',

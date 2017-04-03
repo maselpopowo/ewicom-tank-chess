@@ -2,9 +2,9 @@ import { async, inject, TestBed } from "@angular/core/testing";
 import { BoardService } from "./board.service";
 import { MOCK_BOARD } from "./board.mock";
 import { Square } from "./square";
-import { Piece } from "./piece";
+import { Piece } from "../piece/piece";
 import { Observable } from "rxjs";
-import { Direction } from "./direction.enum";
+import { Direction } from "../piece/direction.enum";
 import { SquareType } from "./square-type.enum";
 
 import * as _ from "lodash";

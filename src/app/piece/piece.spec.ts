@@ -1,5 +1,6 @@
 import { Piece } from "./piece";
 import { Direction } from "./direction.enum";
+
 describe('Piece class', () =>{
 
   it('should create new piece', () =>{

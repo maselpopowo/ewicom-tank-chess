@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { PieceComponent } from "./piece.component";
-import { Piece } from "../game-board/piece";
-import { Direction } from "../game-board/direction.enum";
+import { Piece } from "./piece";
+import { Direction } from "./direction.enum";
 
 describe('PieceComponent', () =>{
   let component: PieceComponent;

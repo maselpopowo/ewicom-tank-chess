@@ -3,8 +3,8 @@ import { PieceInfoComponent } from "./piece-info.component";
 import { MdCardModule } from "@angular/material";
 import { BoardService } from "../game-board/board.service";
 import { Observable } from "rxjs";
-import { Piece } from "../game-board/piece";
-import { Direction } from "../game-board/direction.enum";
+import { Piece } from "../piece/piece";
+import { Direction } from "../piece/direction.enum";
 import { By } from "@angular/platform-browser";
 
 describe('PieceInfoComponent', () =>{
