@@ -16,11 +16,17 @@ export function baseBoard(): BoardTemplate{
 
   board[64].setPiece(new Piece('Panzerkampfwagen 35(t)', 'Light tank', Direction.RIGHT, '/src/assets/tank.png', Direction.LEFT));
   board[93].setPiece(new Piece('Panzerkampfwagen 35(t)', 'Light tank', Direction.RIGHT, '/src/assets/tank.png', Direction.LEFT));
+
   let longShooter = new Piece('Panzerkampfwagen 35(t)', 'Long shooter', Direction.RIGHT, '/src/assets/tank.png', Direction.LEFT);
   longShooter.setRangeOfFire(3);
   board[154].setPiece(longShooter);
+
   board[111].setPiece(new Piece('Panzerkampfwagen 35(t)', 'Light tank', Direction.LEFT, '/src/assets/tank.png', Direction.LEFT));
-  board[144].setPiece(new Piece('Panzerkampfwagen 35(t)', 'Light tank', Direction.LEFT, '/src/assets/tank.png', Direction.LEFT));
+
+  let tourist = new Piece('Panzerkampfwagen 35(t)', 'Light tank', Direction.LEFT, '/src/assets/tank.png', Direction.LEFT);
+  tourist.rangeOfMovement = 3;
+  board[144].setPiece(tourist);
+
   board[178].setPiece(new Piece('Panzerkampfwagen 35(t)', 'Light tank', Direction.LEFT, '/src/assets/tank.png', Direction.LEFT));
 
   return {

@@ -77,17 +77,18 @@ export class BoardService {
 
   private movePieceInDirection(piece: Piece, index: number, square: Square){
     let step;
+    let rangeOfMovement = piece.rangeOfMovement;
     if (piece.getDirection() === Direction.UP) {
-      step = -this.boardWidth;
+      step = -this.boardWidth * rangeOfMovement;
     }
     if (piece.getDirection() === Direction.DOWN) {
-      step = this.boardWidth;
+      step = this.boardWidth * rangeOfMovement;
     }
     if (piece.getDirection() === Direction.LEFT) {
-      step = -1;
+      step = -rangeOfMovement;
     }
     if (piece.getDirection() === Direction.RIGHT) {
-      step = 1;
+      step = rangeOfMovement;
     }
 
     this.board[(index + step)].setPiece(piece);

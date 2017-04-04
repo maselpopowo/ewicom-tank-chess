@@ -1,4 +1,4 @@
-import { Piece } from "./piece";
+import { Piece } from "../piece/piece";
 import { SquareType } from "./square-type.enum";
 export class Square {
 

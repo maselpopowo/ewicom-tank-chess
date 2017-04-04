@@ -92,4 +92,18 @@ describe('Piece class', () =>{
     expect(piece.getDirection()).toEqual(Direction.DOWN);
   });
 
+  it('should get piece range of fire', () =>{
+    let piece = new Piece('name', 'type', Direction.UP, '/src/assets/tank.png', Direction.DOWN);
+    piece.setRangeOfFire(4);
+
+    expect(piece.getRangeOfFire()).toEqual(4)
+  });
+
+  it('should get and set piece range of movement', () =>{
+    let piece = new Piece('name', 'type', Direction.UP, '/src/assets/tank.png', Direction.DOWN);
+    piece.rangeOfMovement = 4;
+
+    expect(piece.rangeOfMovement).toEqual(4)
+  });
+
 });

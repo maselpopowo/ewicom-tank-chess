@@ -10,6 +10,7 @@ export class Piece {
   private imageDirection: Direction;
 
   private rangeOfFire: number = 1;
+  private _rangeOfMovement: number = 1;
 
   constructor(name: string, type: string, direction: Direction, image: string, imageDirection: Direction){
     this.id = this.generateID();
@@ -62,5 +63,13 @@ export class Piece {
 
   getRangeOfFire(): number{
     return this.rangeOfFire;
+  }
+
+  get rangeOfMovement(): number{
+    return this._rangeOfMovement;
+  }
+
+  set rangeOfMovement(value: number){
+    this._rangeOfMovement = value;
   }
 }
