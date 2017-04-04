@@ -9,7 +9,7 @@ export class Piece {
   private image: string;
   private imageDirection: Direction;
 
-  private rangeOfFire: number = 1;
+  private _rangeOfFire: number = 1;
   private _rangeOfMovement: number = 1;
 
   constructor(name: string, type: string, direction: Direction, image: string, imageDirection: Direction){
@@ -57,12 +57,12 @@ export class Piece {
     this.direction = newDirection;
   }
 
-  setRangeOfFire(range: number){
-    this.rangeOfFire = range;
+  get rangeOfFire(): number{
+    return this._rangeOfFire;
   }
 
-  getRangeOfFire(): number{
-    return this.rangeOfFire;
+  set rangeOfFire(value: number){
+    this._rangeOfFire = value;
   }
 
   get rangeOfMovement(): number{

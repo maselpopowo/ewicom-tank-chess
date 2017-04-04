@@ -132,7 +132,7 @@ export class BoardService {
 
   private getSquaresToSetHit(piece: Piece, currentIndex: number): Square[]{
     let squares = [];
-    let isNotLastSquare = () => squares.length < piece.getRangeOfFire();
+    let isNotLastSquare = () => squares.length < piece.rangeOfFire;
     let isNotAfterLastColumn = (index: number) => index <= this.getIndexOfLastElementInRow(currentIndex);
     let isNotBeforeFirstColumn = (index: number) => index >= this.getIndexOfFirstElementInRow(currentIndex);
     let isNotBeforeFirstRow = (index: number) => this.getIndexOfCurrentRow(index) >= 0;

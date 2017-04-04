@@ -277,7 +277,7 @@ describe('BoardService', () =>{
       inject([BoardService], (service: BoardService) =>{
 
         let longShooter = new Piece('long-shooter', 'type', Direction.LEFT, 'img', Direction.LEFT);
-        longShooter.setRangeOfFire(3);
+        longShooter.rangeOfFire = 3;
         service.setPiece(9, longShooter);
 
         service.getBoard().subscribe(board =>{
@@ -307,7 +307,7 @@ describe('BoardService', () =>{
     let target = new Piece('target', 'type', Direction.LEFT, 'image-path', Direction.LEFT);
     let other = new Piece('other', 'type', Direction.LEFT, 'image-path', Direction.LEFT);
     let shooter = new Piece('shooter', 'type', Direction.LEFT, 'image-path', Direction.LEFT);
-    shooter.setRangeOfFire(5);
+    shooter.rangeOfFire = 5;
 
     it('shoot with left direction',
       inject([BoardService], (service: BoardService) =>{
@@ -388,7 +388,7 @@ describe('BoardService', () =>{
     it('shoot with DOWN direction to maximum range',
       inject([BoardService], (service: BoardService) =>{
         shooter.setDirection(Direction.DOWN);
-        shooter.setRangeOfFire(2);
+        shooter.rangeOfFire = 2;
         service.setPiece(0, shooter);
 
         service.setPiece(20, target);
@@ -421,7 +421,7 @@ describe('BoardService', () =>{
     it('shoot with UP direction to maximum range',
       inject([BoardService], (service: BoardService) =>{
         shooter.setDirection(Direction.UP);
-        shooter.setRangeOfFire(2);
+        shooter.rangeOfFire = 2;
         service.setPiece(30, shooter);
 
         service.setPiece(10, target);
@@ -438,7 +438,7 @@ describe('BoardService', () =>{
     it('shoot with up direction should hit only first piece',
       inject([BoardService], (service: BoardService) =>{
         shooter.setDirection(Direction.UP);
-        shooter.setRangeOfFire(2);
+        shooter.rangeOfFire = 2;
         service.setPiece(31, shooter);
 
         service.setPiece(21, target);
