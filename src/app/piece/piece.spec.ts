@@ -1,5 +1,6 @@
 import { Piece } from "./piece";
 import { Direction } from "./direction.enum";
+
 describe('Piece class', () =>{
 
   it('should create new piece', () =>{
@@ -89,6 +90,20 @@ describe('Piece class', () =>{
     piece.setDirection(Direction.DOWN);
 
     expect(piece.getDirection()).toEqual(Direction.DOWN);
+  });
+
+  it('should get and set range of fire', () =>{
+    let piece = new Piece('name', 'type', Direction.UP, '/src/assets/tank.png', Direction.DOWN);
+    piece.rangeOfFire = 4;
+
+    expect(piece.rangeOfFire).toEqual(4)
+  });
+
+  it('should get and set range of movement', () =>{
+    let piece = new Piece('name', 'type', Direction.UP, '/src/assets/tank.png', Direction.DOWN);
+    piece.rangeOfMovement = 4;
+
+    expect(piece.rangeOfMovement).toEqual(4)
   });
 
 });

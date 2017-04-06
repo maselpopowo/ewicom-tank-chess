@@ -1,6 +1,6 @@
 import { Square } from "./square";
-import { Piece } from "./piece";
-import { Direction } from "./direction.enum";
+import { Piece } from "../piece/piece";
+import { Direction } from "../piece/direction.enum";
 import { SquareType } from "./square-type.enum";
 describe('Square class', () =>{
 

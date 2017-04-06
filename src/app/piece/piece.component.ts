@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { Piece } from "../game-board/piece";
+import { Piece } from "./piece";
 
 @Component({
   selector: 'etc-piece',

@@ -3,8 +3,8 @@ import { PieceInfoComponent } from "./piece-info.component";
 import { MdCardModule } from "@angular/material";
 import { BoardService } from "../game-board/board.service";
 import { Observable } from "rxjs";
-import { Piece } from "../game-board/piece";
-import { Direction } from "../game-board/direction.enum";
+import { Piece } from "../piece/piece";
+import { Direction } from "../piece/direction.enum";
 import { By } from "@angular/platform-browser";
 
 describe('PieceInfoComponent', () =>{
@@ -152,7 +152,20 @@ describe('PieceInfoComponent', () =>{
       element.triggerEventHandler('click', null);
 
       expect(service.fire).toHaveBeenCalledWith(piece.getId());
-    }))
+    })
+  );
+
+  it('should disabled FORWARD button if movement is impossibility',
+    inject([BoardService], (service: BoardService) =>{
+      let piece = new Piece('piece name', 'type', Direction.LEFT, 'image', Direction.LEFT);
+      component.piece = piece;
+      fixture.detectChanges();
+      spyOn(service, 'canMove').and.returnValue(Observable.of(false));
+
+      let element = fixture.debugElement.query(By.css('#forward-button'));
+      expect(element.properties['disabled']).toBeTruthy()
+    }),
+  )
 });
 
 class BoardServiceMock {
@@ -167,5 +180,9 @@ class BoardServiceMock {
   }
 
   fire(){
+  }
+
+  canMove(){
+
   }
 }

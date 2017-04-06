@@ -2,9 +2,9 @@ import { async, inject, TestBed } from "@angular/core/testing";
 import { BoardService } from "./board.service";
 import { MOCK_BOARD } from "./board.mock";
 import { Square } from "./square";
-import { Piece } from "./piece";
+import { Piece } from "../piece/piece";
 import { Observable } from "rxjs";
-import { Direction } from "./direction.enum";
+import { Direction } from "../piece/direction.enum";
 import { SquareType } from "./square-type.enum";
 
 import * as _ from "lodash";
@@ -32,11 +32,6 @@ describe('BoardService', () =>{
     for (let i = 0; i < 50; i++) {
       board.push(new Square(SquareType.GRASS));
     }
-
-    // board[0][1].setPiece(new Piece('name', 'type', Direction.LEFT, 'image-path', Direction.LEFT));
-    // board[1][2].setPiece(new Piece('name', 'type', Direction.UP, 'image-path', Direction.LEFT));
-    // board[2][4].setPiece(new Piece('name', 'type', Direction.RIGHT, 'image-path', Direction.LEFT));
-    // board[3][6].setPiece(new Piece('name', 'type', Direction.DOWN, 'image-path', Direction.LEFT));
 
     return {
       width: 10,
@@ -100,13 +95,14 @@ describe('BoardService', () =>{
   );
 
   describe('#forward', () =>{
-    it('should move piece one row backward if direction is UP',
+    it('should move piece 2 rows backward if direction is UP',
       inject([BoardService], (service: BoardService) =>{
         let pieceIdToMove = new Piece('name', 'type', Direction.UP, 'image-path', Direction.LEFT);
-        service.setPiece(10, pieceIdToMove);
+        pieceIdToMove.rangeOfMovement = 2;
+        service.setPiece(20, pieceIdToMove);
 
         service.getBoard().subscribe((board) =>{
-          expect(board[1][0].getPiece()).toBeUndefined();
+          expect(board[2][0].getPiece()).toBeUndefined();
           expect(board[0][0].getPiece().getId()).toEqual(pieceIdToMove.getId());
         });
 
@@ -114,42 +110,45 @@ describe('BoardService', () =>{
       })
     );
 
-    it('should move piece one row forward if direction is DOWN',
+    it('should move piece 2 row forward if direction is DOWN',
       inject([BoardService], (service: BoardService) =>{
         let pieceIdToMove = new Piece('name', 'type', Direction.DOWN, 'image-path', Direction.LEFT);
+        pieceIdToMove.rangeOfMovement = 2
         service.setPiece(10, pieceIdToMove);
 
         service.getBoard().subscribe((board) =>{
           expect(board[1][0].getPiece()).toBeUndefined();
-          expect(board[2][0].getPiece().getId()).toEqual(pieceIdToMove.getId());
+          expect(board[3][0].getPiece().getId()).toEqual(pieceIdToMove.getId());
         });
 
         service.forward(pieceIdToMove.getId());
       })
     );
 
-    it('should move piece one column forward if direction is RIGHT',
+    it('should move piece 3 columns forward if direction is RIGHT',
       inject([BoardService], (service: BoardService) =>{
         let pieceIdToMove = new Piece('name', 'type', Direction.RIGHT, 'image-path', Direction.LEFT);
+        pieceIdToMove.rangeOfMovement = 3
         service.setPiece(10, pieceIdToMove);
 
         service.getBoard().subscribe((board) =>{
           expect(board[1][0].getPiece()).toBeUndefined();
-          expect(board[1][1].getPiece().getId()).toEqual(pieceIdToMove.getId());
+          expect(board[1][3].getPiece().getId()).toEqual(pieceIdToMove.getId());
         });
 
         service.forward(pieceIdToMove.getId());
       })
     );
 
-    it('should move piece one column backward if direction is LEFT',
+    it('should move piece 4 columns backward if direction is LEFT',
       inject([BoardService], (service: BoardService) =>{
         let pieceIdToMove = new Piece('name', 'type', Direction.LEFT, 'image-path', Direction.LEFT);
-        service.setPiece(11, pieceIdToMove);
+        pieceIdToMove.rangeOfMovement = 4
+        service.setPiece(9, pieceIdToMove);
 
         service.getBoard().subscribe((board) =>{
-          expect(board[1][1].getPiece()).toBeUndefined();
-          expect(board[1][0].getPiece().getId()).toEqual(pieceIdToMove.getId());
+          expect(board[0][9].getPiece()).toBeUndefined();
+          expect(board[0][5].getPiece().getId()).toEqual(pieceIdToMove.getId());
         });
 
         service.forward(pieceIdToMove.getId());
@@ -188,6 +187,94 @@ describe('BoardService', () =>{
         service.forward('fakePiece');
       })
     );
+
+    it('should not move if on destination square is other piece',
+      inject([BoardService], (service: BoardService) =>{
+        let pieceIdToMove = new Piece('name', 'type', Direction.LEFT, 'image-path', Direction.LEFT);
+        pieceIdToMove.rangeOfMovement = 4;
+        let otherPiece = new Piece('name', 'type', Direction.LEFT, 'image-path', Direction.LEFT);
+
+        service.setPiece(9, pieceIdToMove);
+        service.setPiece(5, otherPiece);
+
+        service.getBoard().subscribe((board) =>{
+          expect(board[0][9].getPiece().getId()).toEqual(pieceIdToMove.getId());
+          expect(board[0][5].getPiece().getId()).toEqual(otherPiece.getId());
+        });
+
+        service.forward(pieceIdToMove.getId());
+      })
+    )
+  });
+
+  describe('#canMove', () =>{
+    it('should return true if destination square is empty',
+      inject([BoardService], (service: BoardService) =>{
+        let pieceToMove = new Piece('name', 'type', Direction.LEFT, 'image-path', Direction.LEFT);
+        pieceToMove.rangeOfMovement = 1;
+        let otherPiece = new Piece('name', 'type', Direction.LEFT, 'image-path', Direction.LEFT);
+
+        service.setPiece(9, pieceToMove);
+        service.setPiece(5, otherPiece);
+
+        expect(service.canMove(pieceToMove.getId())).toBeTruthy();
+      })
+    );
+    it('should return false if on destination square piece exists',
+      inject([BoardService], (service: BoardService) =>{
+        let pieceToMove = new Piece('name', 'type', Direction.LEFT, 'image-path', Direction.LEFT);
+        pieceToMove.rangeOfMovement = 4;
+        let otherPiece = new Piece('name', 'type', Direction.LEFT, 'image-path', Direction.LEFT);
+
+        service.setPiece(9, pieceToMove);
+        service.setPiece(5, otherPiece);
+
+        expect(service.canMove(pieceToMove.getId())).toBeFalsy();
+      })
+    )
+    it('should return false if destination square is after last square in row',
+      inject([BoardService], (service: BoardService) =>{
+        let pieceToMove = new Piece('name', 'type', Direction.RIGHT, 'image-path', Direction.LEFT);
+        pieceToMove.rangeOfMovement = 1;
+
+        service.setPiece(9, pieceToMove);
+
+        expect(service.canMove(pieceToMove.getId())).toBeFalsy();
+      })
+    )
+
+    it('should return false if destination square is before first square in row',
+      inject([BoardService], (service: BoardService) =>{
+        let pieceToMove = new Piece('name', 'type', Direction.LEFT, 'image-path', Direction.LEFT);
+        pieceToMove.rangeOfMovement = 1;
+
+        service.setPiece(10, pieceToMove);
+
+        expect(service.canMove(pieceToMove.getId())).toBeFalsy();
+      })
+    )
+
+    it('should return false if destination square row is before first row',
+      inject([BoardService], (service: BoardService) =>{
+        let pieceToMove = new Piece('name', 'type', Direction.UP, 'image-path', Direction.LEFT);
+        pieceToMove.rangeOfMovement = 1;
+
+        service.setPiece(5, pieceToMove);
+
+        expect(service.canMove(pieceToMove.getId())).toBeFalsy();
+      })
+    )
+
+    it('should return false if destination square row is after last row',
+      inject([BoardService], (service: BoardService) =>{
+        let pieceToMove = new Piece('name', 'type', Direction.DOWN, 'image-path', Direction.LEFT);
+        pieceToMove.rangeOfMovement = 1;
+
+        service.setPiece(42, pieceToMove);
+
+        expect(service.canMove(pieceToMove.getId())).toBeFalsy();
+      })
+    )
   });
 
   describe('#rotate', () =>{
@@ -278,7 +365,7 @@ describe('BoardService', () =>{
       inject([BoardService], (service: BoardService) =>{
 
         let longShooter = new Piece('long-shooter', 'type', Direction.LEFT, 'img', Direction.LEFT);
-        longShooter.setRangeOfFire(3);
+        longShooter.rangeOfFire = 3;
         service.setPiece(9, longShooter);
 
         service.getBoard().subscribe(board =>{
@@ -308,7 +395,7 @@ describe('BoardService', () =>{
     let target = new Piece('target', 'type', Direction.LEFT, 'image-path', Direction.LEFT);
     let other = new Piece('other', 'type', Direction.LEFT, 'image-path', Direction.LEFT);
     let shooter = new Piece('shooter', 'type', Direction.LEFT, 'image-path', Direction.LEFT);
-    shooter.setRangeOfFire(5);
+    shooter.rangeOfFire = 5;
 
     it('shoot with left direction',
       inject([BoardService], (service: BoardService) =>{
@@ -389,7 +476,7 @@ describe('BoardService', () =>{
     it('shoot with DOWN direction to maximum range',
       inject([BoardService], (service: BoardService) =>{
         shooter.setDirection(Direction.DOWN);
-        shooter.setRangeOfFire(2);
+        shooter.rangeOfFire = 2;
         service.setPiece(0, shooter);
 
         service.setPiece(20, target);
@@ -422,7 +509,7 @@ describe('BoardService', () =>{
     it('shoot with UP direction to maximum range',
       inject([BoardService], (service: BoardService) =>{
         shooter.setDirection(Direction.UP);
-        shooter.setRangeOfFire(2);
+        shooter.rangeOfFire = 2;
         service.setPiece(30, shooter);
 
         service.setPiece(10, target);
@@ -439,7 +526,7 @@ describe('BoardService', () =>{
     it('shoot with up direction should hit only first piece',
       inject([BoardService], (service: BoardService) =>{
         shooter.setDirection(Direction.UP);
-        shooter.setRangeOfFire(2);
+        shooter.rangeOfFire = 2;
         service.setPiece(31, shooter);
 
         service.setPiece(21, target);
