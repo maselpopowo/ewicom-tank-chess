@@ -66,33 +66,67 @@ export class BoardService {
   }
 
   forward(pieceId: string){
-    this.findPieceAndApply(pieceId, (piece, index, square) =>{
-      this.movePieceInDirection(piece, index, square);
-    });
+    this.movePiece(pieceId);
 
     this.activePiece.next();
     this.inactiveAll();
     this.refresh();
   }
 
-  private movePieceInDirection(piece: Piece, index: number, square: Square){
+  private movePiece(pieceId: string){
+    this.findPieceAndApply(pieceId, (piece, index, sourceSquare) =>{
+      let destinationSquare = this.findDestinationSquareToMove(piece, index);
+      if (BoardService.isSquareEnabledToMove(destinationSquare)) {
+        destinationSquare.setPiece(piece);
+        sourceSquare.removePiece();
+      }
+    });
+  }
+
+  canMove(pieceId: string): boolean{
+    let destinationSquare: Square = undefined;
+
+    this.findPieceAndApply(pieceId, (piece, index) =>{
+      destinationSquare = this.findDestinationSquareToMove(piece, index);
+    });
+
+    return BoardService.isSquareEnabledToMove(destinationSquare);
+  }
+
+  private static isSquareEnabledToMove(square: Square){
+    return _.isUndefined(square) ? false : _.isUndefined(square.getPiece());
+  }
+
+  private findDestinationSquareToMove(piece: Piece, source: number): Square{
     let step;
+    let condition;
+
+    let isNotOutsideSourceRow = (index: number) =>{
+      return this.isNotBeforeFirstInRow(index, source) && this.isNotAfterLastInRow(index, source)
+    }
+
     let rangeOfMovement = piece.rangeOfMovement;
     if (piece.getDirection() === Direction.UP) {
       step = -this.boardWidth * rangeOfMovement;
+      condition = (destination: number) => this.isNotOutOfBounds(destination);
     }
     if (piece.getDirection() === Direction.DOWN) {
       step = this.boardWidth * rangeOfMovement;
+      condition = (destination: number) => this.isNotOutOfBounds(destination);
     }
     if (piece.getDirection() === Direction.LEFT) {
       step = -rangeOfMovement;
+      condition = isNotOutsideSourceRow
     }
     if (piece.getDirection() === Direction.RIGHT) {
       step = rangeOfMovement;
+      condition = isNotOutsideSourceRow;
     }
 
-    this.board[(index + step)].setPiece(piece);
-    square.removePiece();
+    let destination = source + step;
+    if (condition(destination)) {
+      return this.board[destination];
+    }
   }
 
   rotate(pieceId: string, direction: Direction){
@@ -133,39 +167,34 @@ export class BoardService {
   private getSquaresToSetHit(piece: Piece, currentIndex: number): Square[]{
     let squares = [];
     let isNotLastSquare = () => squares.length < piece.rangeOfFire;
-    let isNotAfterLastColumn = (index: number) => index <= this.getIndexOfLastElementInRow(currentIndex);
-    let isNotBeforeFirstColumn = (index: number) => index >= this.getIndexOfFirstElementInRow(currentIndex);
-    let isNotBeforeFirstRow = (index: number) => this.getIndexOfCurrentRow(index) >= 0;
-    let isNotAfterLastRow = (index: number) => this.getIndexOfCurrentRow(index) <= this.getIndexOfLastRow();
 
     let startIndex;
     switch (piece.getDirection()) {
       case Direction.RIGHT:
         startIndex = currentIndex + 1;
-        for (; isNotLastSquare() && isNotAfterLastColumn(startIndex); startIndex++) {
+        for (; isNotLastSquare() && this.isNotAfterLastInRow(startIndex, currentIndex); startIndex++) {
           squares.push(this.board[startIndex]);
         }
         break
       case Direction.LEFT:
         startIndex = currentIndex - 1;
-        for (; isNotLastSquare() && isNotBeforeFirstColumn(startIndex); startIndex--) {
+        for (; isNotLastSquare() && this.isNotBeforeFirstInRow(startIndex, currentIndex); startIndex--) {
           squares.push(this.board[startIndex]);
         }
         break
       case Direction.UP:
         startIndex = currentIndex - this.boardWidth;
-        for (; isNotLastSquare() && isNotBeforeFirstRow(startIndex); startIndex -= this.boardWidth) {
+        for (; isNotLastSquare() && this.isNotOutOfBounds(startIndex); startIndex -= this.boardWidth) {
           squares.push(this.board[startIndex]);
         }
         break
       case Direction.DOWN:
         startIndex = currentIndex + this.boardWidth;
-        for (; isNotLastSquare() && isNotAfterLastRow(startIndex); startIndex += this.boardWidth) {
+        for (; isNotLastSquare() && this.isNotOutOfBounds(startIndex); startIndex += this.boardWidth) {
           squares.push(this.board[startIndex]);
         }
         break
     }
-
     return squares;
   }
 
@@ -185,7 +214,7 @@ export class BoardService {
   }
 
   private getIndexOfLastElementInRow(element: number){
-    return (this.getIndexOfCurrentRow(element) + 1) * this.boardWidth;
+    return ((this.getIndexOfCurrentRow(element) + 1) * this.boardWidth) - 1;
   }
 
   private getIndexOfFirstElementInRow(element: number){
@@ -196,8 +225,16 @@ export class BoardService {
     return Math.floor(element / this.boardWidth);
   }
 
-  private getIndexOfLastRow(){
-    return (this.board.length / this.boardWidth) - 1;
+  private isNotOutOfBounds(index: number){
+    return index >= 0 && index < this.board.length;
+  }
+
+  private isNotAfterLastInRow(index: number, current: number){
+    return index <= this.getIndexOfLastElementInRow(current);
+  }
+
+  private isNotBeforeFirstInRow(index: number, current: number){
+    return index >= this.getIndexOfFirstElementInRow(current);
   }
 
   setPiece(index: number, piece: Piece){

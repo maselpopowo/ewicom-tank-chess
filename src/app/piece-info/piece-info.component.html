@@ -8,7 +8,8 @@
       <md-list-item>Range of fire: {{piece.rangeOfFire}}</md-list-item>
     </md-list>
 
-    <button id="forward-button" md-raised-button (click)="forward()" color="primary">FORWARD</button>
+    <button id="forward-button" md-raised-button (click)="forward()" color="primary" [disabled]="!canMove()">FORWARD
+    </button>
     <div class="rotation-actions">
       <button id="up-button" md-raised-button (click)="up()" color="primary" [disabled]="hasUpDirection()">UP</button>
       <div>

@@ -67,4 +67,8 @@ export class PieceInfoComponent implements OnInit {
     this._boardService.fire(this.piece.getId());
   }
 
+  canMove(): boolean{
+    return this._boardService.canMove(this.piece.getId());
+  }
+
 }
