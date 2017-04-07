@@ -1,4 +1,5 @@
 import { Direction } from "./direction.enum";
+import { PieceJson } from "./piece-json.interface";
 export class Piece {
   private id: string;
   name: string;
@@ -49,6 +50,10 @@ export class Piece {
     return this.image;
   }
 
+  getImageDirection(): Direction{
+    return this.imageDirection;
+  }
+
   getDirection(): Direction{
     return this.direction;
   }
@@ -71,5 +76,17 @@ export class Piece {
 
   set rangeOfMovement(value: number){
     this._rangeOfMovement = value;
+  }
+
+  static fromJSON(json: PieceJson): Piece{
+    let piece: Piece = new Piece(
+      json.name, json.type, json.direction,
+      json.image, json.imageDirection
+    );
+
+    piece.rangeOfFire = json.rangeOfFire
+    piece.rangeOfMovement = json.rangeOfMovement
+
+    return piece
   }
 }
