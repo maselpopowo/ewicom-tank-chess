@@ -1,5 +1,6 @@
 import { Piece } from "../piece/piece";
 import { SquareType } from "./square-type.enum";
+import { SquareJson } from "./square-json.interface";
 export class Square {
 
   private id: string;
@@ -56,5 +57,13 @@ export class Square {
 
   isExplosion(): boolean{
     return this.explosion;
+  }
+
+  static fromJson(json: SquareJson){
+    let square = new Square(json.type);
+    if (json.piece) {
+      square.setPiece(Piece.fromJSON(json.piece))
+    }
+    return square;
   }
 }

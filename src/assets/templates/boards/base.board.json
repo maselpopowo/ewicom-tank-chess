@@ -1,0 +1,1383 @@
+{
+  "width": 30,
+  "height": 15,
+  "data": [
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 2
+    },
+    {
+      "type": 2
+    },
+    {
+      "type": 2
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 2
+    },
+    {
+      "type": 2
+    },
+    {
+      "type": 2
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1,
+      "piece": {
+        "name": "Sherman 1",
+        "type": "Light tank",
+        "direction": 1,
+        "image": "/assets/tank.png",
+        "imageDirection": 3,
+        "rangeOfFire": 3,
+        "rangeOfMovement": 3
+      }
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1,
+      "piece": {
+        "name": "Sherman 2",
+        "type": "Light tank",
+        "direction": 1,
+        "image": "/assets/tank.png",
+        "imageDirection": 3,
+        "rangeOfFire": 3,
+        "rangeOfMovement": 2
+      }
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1,
+      "piece": {
+        "name": "Sherman 3",
+        "type": "Light tank",
+        "direction": 1,
+        "image": "/assets/tank.png",
+        "imageDirection": 3,
+        "rangeOfFire": 3,
+        "rangeOfMovement": 3
+      }
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    },
+    {
+      "type": 1
+    }
+  ]
+}
