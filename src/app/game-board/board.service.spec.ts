@@ -1,6 +1,5 @@
 import { async, inject, TestBed } from "@angular/core/testing";
 import { BoardService } from "./board.service";
-import { MOCK_BOARD } from "./board.mock";
 import { Square } from "./square";
 import { Piece } from "../piece/piece";
 import { Observable } from "rxjs";
@@ -9,36 +8,40 @@ import { SquareType } from "./square-type.enum";
 
 import * as _ from "lodash";
 import { BoardTemplate } from "./board-template.interface";
+import { BoardTemplateService } from "./board-template.service";
 
 describe('BoardService', () =>{
+  let initialBoard = [];
 
-  let initialBoard;
-  let boardConfig;
-
-  beforeEach(() =>{
-    boardConfig = mockBoard();
-    initialBoard = boardConfig.data;
-
-    TestBed.configureTestingModule({
-      providers: [
-        BoardService,
-        {provide: MOCK_BOARD, useValue: boardConfig}
-      ]
-    });
-  });
-
-  function mockBoard(): BoardTemplate{
+  let getInitialBoard = () =>{
     let board = [];
     for (let i = 0; i < 50; i++) {
       board.push(new Square(SquareType.GRASS));
     }
+    return board
+  };
 
-    return {
-      width: 10,
-      height: 5,
-      data: board
-    };
+  let boardTemplateServiceMock = {
+    loadTemplate(): Observable<BoardTemplate> {
+      return Observable.of({
+        width: 10,
+        height: 5,
+        data: initialBoard
+      })
+    }
   }
+
+  beforeEach(() =>{
+
+    initialBoard = getInitialBoard();
+
+    TestBed.configureTestingModule({
+      providers: [
+        BoardService,
+        {provide: BoardTemplateService, useValue: boardTemplateServiceMock}
+      ]
+    });
+  });
 
   it('should create service', inject([BoardService], (service: BoardService) =>{
     expect(service).toBeTruthy();
@@ -49,7 +52,7 @@ describe('BoardService', () =>{
   }));
 
   it('should return next value on refresh', async(inject([BoardService], (service: BoardService) =>{
-    service.getBoard().subscribe(board => expect(board).toEqual(_.chunk(initialBoard, boardConfig.width)));
+    service.getBoard().subscribe(board => expect(board).toEqual(_.chunk(initialBoard, 10)));
 
     service.refresh();
   })));
@@ -391,7 +394,6 @@ describe('BoardService', () =>{
   );
 
   describe('should remove piece if between shooter and target square is one', () =>{
-
     let target = new Piece('target', 'type', Direction.LEFT, 'image-path', Direction.LEFT);
     let other = new Piece('other', 'type', Direction.LEFT, 'image-path', Direction.LEFT);
     let shooter = new Piece('shooter', 'type', Direction.LEFT, 'image-path', Direction.LEFT);
@@ -412,7 +414,7 @@ describe('BoardService', () =>{
       })
     );
 
-    it('shoot with left direction to maximum range',
+    it('shoot with left direction to maximum  range',
       inject([BoardService], (service: BoardService) =>{
         shooter.setDirection(Direction.LEFT);
         service.setPiece(9, shooter);

@@ -9,7 +9,7 @@ import { SquareComponent } from "./game-board/square.component";
 import { BoardService } from "./game-board/board.service";
 import { PieceInfoComponent } from "./piece-info/piece-info.component";
 import { PieceComponent } from "./piece/piece.component";
-import { baseBoard, MOCK_BOARD } from "./game-board/board.mock";
+import { BoardTemplateService } from "./game-board/board-template.service";
 
 @NgModule({
   declarations: [
@@ -27,7 +27,7 @@ import { baseBoard, MOCK_BOARD } from "./game-board/board.mock";
   ],
   providers: [
     BoardService,
-    {provide: MOCK_BOARD, useFactory: baseBoard}
+    BoardTemplateService
   ],
   bootstrap: [AppComponent]
 })

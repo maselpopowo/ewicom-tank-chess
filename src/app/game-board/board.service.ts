@@ -1,14 +1,14 @@
-import { Inject, Injectable } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { Square } from "./square";
 import "rxjs/add/observable/of";
 import { Piece } from "../piece/piece";
 import { Subject } from "rxjs";
-import { MOCK_BOARD } from "./board.mock";
 import { Direction } from "../piece/direction.enum";
 
 import * as _ from "lodash";
 import { BoardTemplate } from "./board-template.interface";
+import { BoardTemplateService } from "./board-template.service";
 
 @Injectable()
 export class BoardService {
@@ -22,11 +22,16 @@ export class BoardService {
   private boardWidth: number;
   private boardHeight: number;
 
-  constructor(@Inject(MOCK_BOARD) private mockBoard: BoardTemplate){
-    this.board = mockBoard.data;
+  constructor(private templateService: BoardTemplateService){
+    this.templateService.loadTemplate("/assets/templates/boards/base.board.json")
+      .subscribe((template: BoardTemplate) =>{
+        this.board = template.data;
 
-    this.boardWidth = mockBoard.width;
-    this.boardHeight = mockBoard.height;
+        this.boardWidth = template.width;
+        this.boardHeight = template.height;
+
+        this.refresh()
+      });
   }
 
   getBoard(): Observable<Array<Array<Square>>>{
