@@ -465,7 +465,16 @@
       "type": 1
     },
     {
-      "type": 1
+      "type": 1,
+      "piece": {
+        "name": "T34 1",
+        "type": "Light tank",
+        "direction": 3,
+        "image": "/assets/tank.png",
+        "imageDirection": 3,
+        "rangeOfFire": 5,
+        "rangeOfMovement": 2
+      }
     },
     {
       "type": 1
@@ -921,7 +930,16 @@
       "type": 1
     },
     {
-      "type": 1
+      "type": 1,
+      "piece": {
+        "name": "T34 2",
+        "type": "Light tank",
+        "direction": 3,
+        "image": "/assets/tank.png",
+        "imageDirection": 3,
+        "rangeOfFire": 3,
+        "rangeOfMovement": 5
+      }
     },
     {
       "type": 1
@@ -1146,7 +1164,16 @@
       "type": 1
     },
     {
-      "type": 1
+      "type": 1,
+      "piece": {
+        "name": "T34 3",
+        "type": "Light tank",
+        "direction": 0,
+        "image": "/assets/tank.png",
+        "imageDirection": 3,
+        "rangeOfFire": 10,
+        "rangeOfMovement": 5
+      }
     },
     {
       "type": 1
