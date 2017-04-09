@@ -10,6 +10,8 @@ import { BoardService } from "./game-board/board.service";
 import { PieceInfoComponent } from "./piece-info/piece-info.component";
 import { PieceComponent } from "./piece/piece.component";
 import { BoardTemplateService } from "./game-board/board-template.service";
+import { ActivePlayerComponent } from "./active-player/active-player.component";
+import { TurnService } from "./turn.service";
 
 @NgModule({
   declarations: [
@@ -17,7 +19,8 @@ import { BoardTemplateService } from "./game-board/board-template.service";
     GameBoardComponent,
     SquareComponent,
     PieceInfoComponent,
-    PieceComponent
+    PieceComponent,
+    ActivePlayerComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +30,8 @@ import { BoardTemplateService } from "./game-board/board-template.service";
   ],
   providers: [
     BoardService,
-    BoardTemplateService
+    BoardTemplateService,
+    TurnService
   ],
   bootstrap: [AppComponent]
 })

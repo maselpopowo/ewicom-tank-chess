@@ -1,0 +1,15 @@
+.active-player {
+  display: flex;
+
+  span {
+    flex: 1;
+    text-align: center;
+    color: white;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+}
+
+.active {
+  background-color: #000066;
+}

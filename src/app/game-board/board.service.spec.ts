@@ -9,6 +9,7 @@ import { SquareType } from "./square-type.enum";
 import * as _ from "lodash";
 import { BoardTemplate } from "./board-template.interface";
 import { BoardTemplateService } from "./board-template.service";
+import { TurnService } from "../turn.service";
 
 describe('BoardService', () =>{
   let initialBoard = [];
@@ -38,7 +39,8 @@ describe('BoardService', () =>{
     TestBed.configureTestingModule({
       providers: [
         BoardService,
-        {provide: BoardTemplateService, useValue: boardTemplateServiceMock}
+        {provide: BoardTemplateService, useValue: boardTemplateServiceMock},
+        {provide: TurnService, useClass: TurnServiceMock}
       ]
     });
   });
@@ -547,3 +549,8 @@ describe('BoardService', () =>{
 
   });
 });
+
+class TurnServiceMock {
+  nextTurn(){
+  }
+}

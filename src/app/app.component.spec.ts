@@ -8,6 +8,8 @@ import { Observable } from "rxjs/Observable";
 import "rxjs/add/observable/of";
 import { PieceInfoComponent } from "./piece-info/piece-info.component";
 import { PieceComponent } from "./piece/piece.component";
+import { TurnService } from "./turn.service";
+import { ActivePlayerComponent } from "./active-player/active-player.component";
 
 describe('AppComponent', () =>{
   beforeEach(async(() =>{
@@ -17,13 +19,15 @@ describe('AppComponent', () =>{
         GameBoardComponent,
         SquareComponent,
         PieceInfoComponent,
-        PieceComponent
+        PieceComponent,
+        ActivePlayerComponent
       ],
       imports: [
         MdToolbarModule
       ],
       providers: [
-        {provide: BoardService, useClass: BoardServiceMock}
+        {provide: BoardService, useClass: BoardServiceMock},
+        {provide: TurnService, useClass: TurnServiceMock}
       ]
     }).compileComponents();
   }));
@@ -52,5 +56,11 @@ class BoardServiceMock {
 
   getActivePiece(){
     return Observable.of();
+  }
+}
+
+class TurnServiceMock {
+  getActivePlayer(){
+    return Observable.of()
   }
 }
