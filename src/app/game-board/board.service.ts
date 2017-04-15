@@ -9,6 +9,7 @@ import { Direction } from "../piece/direction.enum";
 import * as _ from "lodash";
 import { BoardTemplate } from "./board-template.interface";
 import { BoardTemplateService } from "./board-template.service";
+import { TurnService } from "../turn.service";
 
 @Injectable()
 export class BoardService {
@@ -22,7 +23,8 @@ export class BoardService {
   private boardWidth: number;
   private boardHeight: number;
 
-  constructor(private templateService: BoardTemplateService){
+  constructor(private templateService: BoardTemplateService,
+              private turnService: TurnService){
     this.templateService.loadTemplate("/assets/templates/boards/base.board.json")
       .subscribe((template: BoardTemplate) =>{
         this.board = template.data;
@@ -76,6 +78,7 @@ export class BoardService {
     this.activePiece.next();
     this.inactiveAll();
     this.refresh();
+    this.turnService.nextTurn();
   }
 
   private movePiece(pieceId: string){
@@ -142,6 +145,7 @@ export class BoardService {
     this.activePiece.next();
     this.inactiveAll();
     this.refresh();
+    this.turnService.nextTurn()
   }
 
   fire(pieceId: string){
@@ -155,6 +159,7 @@ export class BoardService {
     this.activePiece.next();
     this.inactiveAll();
     this.refresh();
+    this.turnService.nextTurn()
   }
 
   private findPieceAndApply(pieceId: string, callback: (piece: Piece, index: number, square: Square) => void){
