@@ -14,15 +14,7 @@ import { BoardTemplateService } from "./game-board/board-template.service";
 import { ActivePlayerComponent } from "./active-player/active-player.component";
 import { TurnService } from "./turn.service";
 import { AngularFireModule } from "angularfire2";
-
-export const firebaseConfig = {
-  apiKey: "AIzaSyA9sKRTd6s2AOj6Km-7USMeBmXHa2fpTsg",
-  authDomain: "tank-chess-dev.firebaseapp.com",
-  databaseURL: "https://tank-chess-dev.firebaseio.com",
-  projectId: "tank-chess-dev",
-  storageBucket: "tank-chess-dev.appspot.com",
-  messagingSenderId: "272840136761"
-};
+import { firebaseConfig } from "../environments/environment";
 
 @NgModule({
   declarations: [
