@@ -15,6 +15,7 @@ import { ActivePlayerComponent } from "./active-player/active-player.component";
 import { TurnService } from "./turn.service";
 import { AngularFireModule } from "angularfire2";
 import { firebaseConfig } from "../environments/environment";
+import { AngularFireAuthModule } from "angularfire2/auth";
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { firebaseConfig } from "../environments/environment";
     MdToolbarModule,
     MdButtonModule,
     MdListModule,
-    AngularFireModule.initializeApp(firebaseConfig)
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireAuthModule
   ],
   providers: [
     BoardService,
