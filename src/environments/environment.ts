@@ -6,3 +6,12 @@
 export const environment = {
   production: false
 };
+
+export const firebaseConfig = {
+  apiKey: "AIzaSyA9sKRTd6s2AOj6Km-7USMeBmXHa2fpTsg",
+  authDomain: "tank-chess-dev.firebaseapp.com",
+  databaseURL: "https://tank-chess-dev.firebaseio.com",
+  projectId: "tank-chess-dev",
+  storageBucket: "tank-chess-dev.appspot.com",
+  messagingSenderId: "272840136761"
+};

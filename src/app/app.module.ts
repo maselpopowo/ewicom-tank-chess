@@ -13,6 +13,9 @@ import { PieceComponent } from "./piece/piece.component";
 import { BoardTemplateService } from "./game-board/board-template.service";
 import { ActivePlayerComponent } from "./active-player/active-player.component";
 import { TurnService } from "./turn.service";
+import { AngularFireModule } from "angularfire2";
+import { firebaseConfig } from "../environments/environment";
+import { AngularFireAuthModule } from "angularfire2/auth";
 
 @NgModule({
   declarations: [
@@ -31,7 +34,9 @@ import { TurnService } from "./turn.service";
     MdCardModule,
     MdToolbarModule,
     MdButtonModule,
-    MdListModule
+    MdListModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireAuthModule
   ],
   providers: [
     BoardService,
