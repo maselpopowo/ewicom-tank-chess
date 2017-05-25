@@ -1,5 +1,6 @@
 <div id="bg">
   <span class="title">Ewicom Tank Chess</span>
+  <span class="title">{{(user | async)?.email}}</span>
 
   <div>
     <button md-raised-button class="social-media-btn facebook-btn">
@@ -13,6 +14,14 @@
     <button md-raised-button class="social-media-btn twitter-btn">
       <i class="fa fa-twitter"></i>
       <span>Sign In with Twitter</span>
+    </button>
+    <button md-raised-button class="social-media-btn player-btn" (click)="loginAsPlayer1()">
+      <i class="fa fa-user-circle"></i>
+      <span>Sign In as Player1</span>
+    </button>
+    <button md-raised-button class="social-media-btn player-btn" (click)="loginAsPlayer2()">
+      <i class="fa fa-user-circle"></i>
+      <span>Sign In as Player2</span>
     </button>
   </div>
 </div>
