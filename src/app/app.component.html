@@ -1,14 +1,18 @@
-<md-toolbar color="primary">
-  <span>Ewicom Tank Chess</span>
-  <span class="toolbar-spacer"></span>
-  <button *ngIf="!(user | async)" md-button (click)="loginAsPlayer1()">Login as Player1</button>
-  <button *ngIf="!(user | async)" md-button (click)="loginAsPlayer2()">Login as Player2</button>
-  <button *ngIf="(user | async)" md-button (click)="logout()">Logout</button>
-  <span>{{ (user | async)?.email }}</span>
-</md-toolbar>
+<div id="bg">
+  <span class="title">Ewicom Tank Chess</span>
 
-<etc-active-player></etc-active-player>
-<div id="content-panel">
-  <etc-game-board></etc-game-board>
-  <etc-piece-info></etc-piece-info>
+  <div>
+    <button md-raised-button class="social-media-btn facebook-btn">
+      <i class="fa fa-facebook"></i>
+      <span>Sign In with Facebook</span>
+    </button>
+    <button md-raised-button class="social-media-btn google-btn">
+      <i class="fa fa-google"></i>
+      <span>Sign In with Google</span>
+    </button>
+    <button md-raised-button class="social-media-btn twitter-btn">
+      <i class="fa fa-twitter"></i>
+      <span>Sign In with Twitter</span>
+    </button>
+  </div>
 </div>

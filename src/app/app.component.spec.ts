@@ -39,13 +39,6 @@ describe('AppComponent', () =>{
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   }));
-
-  it('should render game name in md-toolbar', async(() =>{
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('md-toolbar span').textContent).toContain('Ewicom Tank Chess');
-  }));
 });
 
 class BoardServiceMock {
